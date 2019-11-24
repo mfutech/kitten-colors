@@ -16,21 +16,25 @@
         <h1>Traducteur code EMS</h1>
 
         <p>Le code EMS doit être entré dans l'ordre, avec des esapaces de séparation</p>
-        <p><strong>Note:</strong> ce traducteur effectue une traduction mot à mot et n'effectue aucune vérification sur
-            la
-            justesse du code
-            (il traduira w 33 sans sourcillier )
+        <p>
+            <strong>Note:</strong>
+            ce traducteur effectue une traduction mot à mot et n'effectue aucune vérification sur
+            la justesse du code (par exemple il traduira w 33 sans sourcillier).
         </p>
         <div id="EMSCodeTranslator">
             <table class="table">
                 <tr>
                     <th>Code EMS:</th>
-                    <td><input v-model="ems_code"></td>
-                    <td><button type="submit" class="btn btn-primary" v-on:click="do_translation">traduire</button></td>
+                    <td><input v-model="ems_code">
+                    <button type="submit" class="btn btn-primary" v-on:click="do_translation">traduire</button></td>
                 </tr>
                 <tr>
                     <th>Couleur:</th>
-                    <td colspan="2" align="left">{{color}}</td>
+                    <td>{{color}}</td>
+                </tr>
+                <tr>
+                    <th>Genotype</th>
+                    <td>{{genotype}}</td>
                 </tr>
             </table>
 
@@ -47,6 +51,9 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script-->
+    <script src="ems_translator.js"></script>
+    <script src="ems_genotype.js"></script>
     <script src="index.js"></script>
 </body>
 
