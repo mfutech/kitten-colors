@@ -26,7 +26,7 @@
                 <tr>
                     <th>Code EMS:</th>
                     <td><input v-model="ems_code">
-                    <button type="submit" class="btn btn-primary" v-on:click="do_translation">traduire</button></td>
+                        <button type="submit" class="btn btn-primary" v-on:click="do_translation">traduire</button></td>
                 </tr>
                 <tr>
                     <th>Couleur:</th>
@@ -38,6 +38,80 @@
                 </tr>
             </table>
 
+
+        </div>
+        <h1>Marrieur</h1>
+
+        <p>
+            En entrant les codes EMS du père et de la mère le système va essayer de vous
+            donner les diffèrentes couleurs de chatons possibles.
+        </p>
+        <p>
+            <stong>Note 1:</stong>Le code EMS doit être entré dans l'ordre (lettres, ensuite chiffres), avec des
+            esapaces de séparation
+        </p>
+        <p>
+            <strong>Note 2:</strong>
+            ce traducteur effectue une traduction mot à mot et n'effectue aucune vérification sur
+            la justesse du code (par exemple il traduira w 33 sans sourcillier).
+        </p>
+        <p>
+            <strong>Note 3:</strong>
+            <em>AUCUNE GARANTIE SUR LA QUALITE OU L'EXACTITUDE DU RESULTAT</em>
+        </p>
+        <div id="Breeding">
+            <table class="table">
+                <tr>
+                    <th></th>
+                    <th>Code EMS</th>
+                    <th>Couleur</th>
+                    <th>Genotype</th>
+                </tr>
+                <tr>
+                    <th>Pére:</th>
+                    <td><input v-model="father_ems"></td>
+                    <td>{{father_color}}</td>
+                    <td>{{father_genotype}}</td>
+                </tr>
+                <tr>
+                    <th>Mère:</th>
+                    <td><input v-model="mother_ems"></td>
+                    <td>{{mother_color}}</td>
+                    <td>{{mother_genotype}}</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <button type="submit" class="btn btn-primary" v-on:click="do_breeding">Marrions les</button>
+                    </td>
+                </tr>
+            </table>
+
+            <h3>Les chatons pourraient être:</h3>
+
+            <h4>couleur</h4>
+            <ul id="kitten-colors-list">
+                <li v-for="kit_color in kitten_colors.colors">
+                    {{ kit_color }}
+                </li>
+            </ul>
+            <h4>silver</h4>
+            <ul id="kitten-silver-list">
+                <li v-for="kit_color in kitten_colors.silver">
+                    {{ kit_color }}
+                </li>
+            </ul>
+            <h4>aggouti</h4>
+            <ul id="kitten-aggouti-list">
+                <li v-for="kit_color in kitten_colors.aggouti">
+                    {{ kit_color }}
+                </li>
+            </ul>
+            <h4>point</h4>
+            <ul id="kitten-siamese-list">
+                <li v-for="kit_color in kitten_colors.siamese">
+                    {{ kit_color }}
+                </li>
+            </ul>
 
         </div>
     </div>
@@ -54,6 +128,7 @@
     <!--script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script-->
     <script src="ems_translator.js"></script>
     <script src="ems_genotype.js"></script>
+    <script src="ems_breeding.js"></script>
     <script src="index.js"></script>
 </body>
 

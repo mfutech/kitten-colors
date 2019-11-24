@@ -8,93 +8,112 @@
     Only relevant for cats, from common breeds.
 */
 
+"use strict"
 
-function basic_color (ems_color) {
+function basic_color(ems_color, sex) {
     // ems color, as a string
     if (ems_color.match(/d|e/)) {
         // its a red
-        return "O-";
+        return ["O", (sex == 'male' ? "y" : "O")];
     }
     else if (ems_color.match(/f|g|h|j|q|r/)) {
         // its a tortie
-        return "Oo";
+        return ["O", "o"];
     }
     else {
-        return "o-"; // black is the only color left :-)
+        return ["o", (sex == 'male' ? "y" : "o")]; // black is the only color left :-)
     };
 };
 
-function diluted_color (ems_color) {
+function diluted_color(ems_color) {
     // ems color, as a string
     if (ems_color.match(/a|c|e|g|j|r/)) {
-        return "dd"; // diluted
+        return ["d", "d"]; // diluted
     }
     else {
-        return "D-"; // not diluted
+        return ["D", "-"]; // not diluted
     };
 };
 
-function fullcolor_color (ems_color) {
+function fullcolor_color(ems_color) {
     // ems color as a string
-    if (ems_color.match(/b|c|h|j/)){
-        return "bb/bbl";
+    if (ems_color.match(/b|c|h|j/)) {
+        return ["b", "b/bl"];
     }
     else if (ems_color.match(/o|p|q|r/)) {
-        return "blbl";
+        return ["bl", "bl"];
     }
     else {
-        return "B-";
+        return ["B", "-"];
     };
 };
 
-function silver_color (ems_color) {
+function silver_color(ems_color) {
     if (ems_color.match(/s/)) {
-        return "I-";
-    } 
+        return ["I", "-"];
+    }
     else {
-        return "ii";
+        return ["i", "i"];
     }
 };
 
-function modifier_aggouti (ems_modifiers) {
+function modifier_aggouti(ems_modifiers) {
     // modifiers as arrays
     if (ems_modifiers.includes('21')) {
-        return "A-";
+        return ["A", "-"];
     }
     else if (ems_modifiers.includes('22')) {
-        return "A-";
+        return ["A", "-"];
     }
     else if (ems_modifiers.includes('23')) {
-        return "A-";
+        return ["A", "-"];
     }
     else if (ems_modifiers.includes('24')) {
-        return "A-";
+        return ["A", "-"];
     }
     else if (ems_modifiers.includes('25')) {
-        return "A-";
+        return ["A", "-"];
     }
-    else{
-        return "aa";
+    else {
+        return ["a", "a"];
     }
 }
 
-function mofifier_siamese (ems_modifiers) {
+function modifier_siamese(ems_modifiers) {
     if (ems_modifiers.includes('33')) {
-        return "cscs";
+        return ["cs", "cs"];
     }
     else {
-        return "Cs--";
+        return ["Cs", "-"];
     }
 };
 
-function ems_genotype (ems_code) {
-    ems = ems_parse (ems_code);
-    genotype = [];
-    genotype.push(basic_color(ems.color));
-    genotype.push(diluted_color(ems.color));
-    genotype.push(fullcolor_color(ems.color));
-    genotype.push(silver_color(ems.color));
-    genotype.push(modifier_aggouti(ems.patterns));
-    genotype.push(mofifier_siamese(ems.patterns));
-    return genotype.join(" ");
-}
+function ems_genotype_obj(ems_code, sex) {
+    let ems = ems_parse(ems_code);
+    let genotype = {
+        basic_color: basic_color(ems.color, sex),
+        diluted_color: diluted_color(ems.color),
+        fullcolor_color: fullcolor_color(ems.color),
+        silver_color: silver_color(ems.color),
+        modifier_aggouti: modifier_aggouti(ems.patterns),
+        modifier_siamese: modifier_siamese(ems.patterns),
+    };
+    return genotype;
+};
+
+function ems_genotype(ems_code, sex = 'male') {
+    let genotype = ems_genotype_obj(ems_code, sex);
+
+    let props = [
+        'basic_color',
+        'diluted_color',
+        'fullcolor_color',
+        'silver_color',
+        'modifier_aggouti',
+        'modifier_siamese',
+    ];
+
+    return props.map(function (p) {
+        return genotype[p].join("")
+    }).join(" ");
+};

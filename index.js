@@ -15,3 +15,25 @@ var app = new Vue({
   }
 });
 
+var breeding = new Vue({
+  el: '#Breeding',
+  data: {
+    father_ems: "",
+    father_color: "",
+    father_genotype: "",
+    mother_ems: "",
+    mother_color: "",
+    mother_genotype: "",
+    kitten_colors: ["-", "-"],
+  },
+  methods: {
+    do_breeding: function () {
+      this.father_color = ems_translate(this.father_ems);
+      this.father_genotype = ems_genotype(this.father_ems);
+      this.mother_color = ems_translate(this.mother_ems);
+      this.mother_genotype = ems_genotype(this.mother_ems);
+      this.kitten_colors = ems_breeding(this.father_ems, this.mother_ems)
+    }
+  }
+});
+

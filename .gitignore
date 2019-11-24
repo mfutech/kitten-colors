@@ -1,2 +1,4 @@
 _*
 *.tests.*
+.htaccess
+.user.ini
