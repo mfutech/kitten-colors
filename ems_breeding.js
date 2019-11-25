@@ -9,32 +9,35 @@
 
 "use strict"
 
-function combine_array_uniq(arr1, arr2, join_str = "") {
-    if (arr1.length == 0) return arr2;
-    if (arr2.length == 0) return arr1;
+function uniq (arr) {
     return Array.from(
-        new Set(
-            arr1.map(e1 =>
-                arr2.map(e2 =>
-                    [e1, e2]
-                )
-            ).flat().map(pair => pair.join(join_str))
-        )
-    )
+        new Set (arr) 
+    );
+}
+
+function compose_gen(gen1, gen2) {
+    let res = [ gen1, gen2 ].sort().join("");
+    if (res[0] == "-") { // if first caracter is "-" then if must be put at the end
+        return res.slice(1) + "-";
+    }
+    else {
+        return res;
+    }
 };
 
-function combine_array_sort_uniq(arr1, arr2, join_str = "") {
-    if (arr1.length == 0) return arr2;
-    if (arr2.length == 0) return arr1;
-    return Array.from(
-        new Set(
-            arr1.map(e1 =>
-                arr2.map(e2 =>
-                    [e1, e2].sort()
-                )
-            ).flat().map(pair => pair.join(join_str))
-        )
-    )
+function combine_genes ( gen_arr1, gen_arr2 ) {
+    let combination = gen_arr1.map ( gen1 => 
+        gen_arr2.map ( gen2 =>
+            compose_gen(gen1, gen2)
+        ));
+    return uniq(combination.flat());
+};
+
+function genotype2Str ( genotype_arr ) {
+    console.log(genotype_arr);
+    return uniq(genotype_arr).sort((a, b) => 
+        a.localeCompare(b, undefined, {sensitivity: 'base'})
+        ).join(" ");
 };
 
 function ems_breeding(father_ems, mother_ems) {
@@ -53,23 +56,24 @@ function ems_breeding(father_ems, mother_ems) {
 
     let full_result = [];
     props.forEach(prop =>
-        full_result[prop] = combine_array_sort_uniq(mother_genotype[prop], father_genotype[prop])
+        full_result[prop] = combine_genes(mother_genotype[prop], father_genotype[prop])
     );
 
     let colors = [];
-    ['basic_color',
-        'diluted_color',
-        'fullcolor_color'].forEach(prop =>
-            colors = combine_array_uniq(colors, full_result[prop], " ")
-        );
+    full_result.basic_color.forEach(bc =>
+        full_result.diluted_color.forEach(dc =>
+            full_result.fullcolor_color.forEach(fc=>
+                colors.push( genotype2Str([bc, dc, fc])) 
+            )
+        )
+    );
+
     let result = {
         colors:     colors,
         silver:     full_result.silver_color,
         aggouti:    full_result.modifier_aggouti,
         siamese:    full_result.modifier_siamese,
     };
-    console.log(father_genotype);
-    console.log(mother_genotype);
-    console.log(result)
+
     return result;
 };

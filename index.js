@@ -29,9 +29,9 @@ var breeding = new Vue({
   methods: {
     do_breeding: function () {
       this.father_color = ems_translate(this.father_ems);
-      this.father_genotype = ems_genotype(this.father_ems);
+      this.father_genotype = ems_genotype(this.father_ems, 'male');
       this.mother_color = ems_translate(this.mother_ems);
-      this.mother_genotype = ems_genotype(this.mother_ems);
+      this.mother_genotype = ems_genotype(this.mother_ems, 'female');
       this.kitten_colors = ems_breeding(this.father_ems, this.mother_ems)
     }
   }

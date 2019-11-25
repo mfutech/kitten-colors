@@ -115,5 +115,5 @@ function ems_genotype(ems_code, sex = 'male') {
 
     return props.map(function (p) {
         return genotype[p].join("")
-    }).join(" ");
+    }).sort((a, b) => a.localeCompare(b, undefined, {sensitivity: 'base'})).join(" ");
 };
