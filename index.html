@@ -2,7 +2,7 @@
 <html lang="fr">
 
 <head>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -90,29 +90,33 @@
             <h3>Les chatons pourraient être:</h3>
 
             <h4>couleur</h4>
-            <ul id="kitten-colors-list">
-                <li v-for="kit_color in kitten_colors.colors">
-                    {{ kit_color }}
-                </li>
-            </ul>
+            <table class="table" id="kitten-colors-list">
+                <tr v-for="kit_color in kitten_colors.colors">
+                    <td>{{kit_color.genotype}}</td>
+                    <td>{{ kit_color.text }}</td>
+                </tr>
+            </table>
             <h4>silver</h4>
-            <ul id="kitten-silver-list">
-                <li v-for="kit_color in kitten_colors.silver">
-                    {{ kit_color }}
-                </li>
-            </ul>
+            <table class="table" id="kitten-silver-list">
+                <tr v-for="kit_color in kitten_colors.silver">
+                    <td>{{kit_color.genotype}}</td>
+                    <td>{{kit_color.text}}</td>
+                </tr>
+            </table>
             <h4>aggouti</h4>
-            <ul id="kitten-aggouti-list">
-                <li v-for="kit_color in kitten_colors.aggouti">
-                    {{ kit_color }}
-                </li>
-            </ul>
+            <table class="table" id="kitten-aggouti-list">
+                <tr v-for="kit_color in kitten_colors.aggouti">
+                    <td>{{kit_color.genotype}}</td>
+                    <td>{{kit_color.text}}</td>
+                </tr>
+            </table>
             <h4>point</h4>
-            <ul id="kitten-siamese-list">
-                <li v-for="kit_color in kitten_colors.siamese">
-                    {{ kit_color }}
-                </li>
-            </ul>
+            <table class="table" id="kitten-siamese-list">
+                <tr v-for="kit_color in kitten_colors.siamese">
+                    <td>{{kit_color.genotype}}</td>
+                    <td>{{kit_color.text}}</td>
+                </tr>
+            </table>
 
         </div>
     </div>
