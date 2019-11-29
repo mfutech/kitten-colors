@@ -91,13 +91,22 @@
 
             <h4>couleur</h4>
             <table class="table" id="kitten-colors-list">
-                <tr v-for="kit_color in kitten_colors.colors">
+                    <tr>
+                            <th>genotype</th>
+                            <th>sex</th>
+                            <th>color</th>
+                            <th>ems</th>
+                        </tr>
+                    <tr v-for="kit_color in kitten_colors.colors">
                     <td>{{kit_color.genotype}}</td>
-                    <td>{{ kit_color.text }}</td>
+                    <td>{{kit_color.sex}}</td>
+                    <td>{{kit_color.color}}</td>
+                    <td>{{kit_color.color_ems}}</td>
                 </tr>
             </table>
             <h4>silver</h4>
             <table class="table" id="kitten-silver-list">
+
                 <tr v-for="kit_color in kitten_colors.silver">
                     <td>{{kit_color.genotype}}</td>
                     <td>{{kit_color.text}}</td>
@@ -129,12 +138,14 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+        
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!--script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script-->
     <script src="ems_translator.js"></script>
     <script src="ems_genotype.js"></script>
     <script src="ems_breeding.js"></script>
     <script src="index.js"></script>
+
 </body>
 
 </html>

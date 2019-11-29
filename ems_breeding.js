@@ -42,31 +42,43 @@ class CatColor{
         let c = [ this.fullcolor, this.dilution, this.base].join(" ");
         let res;
         //console.log(c);
-        if (c.match(/B. D. o[oy]/))          res = ["black",    "n"];
-        else if (c.match(/B. dd o[oy]/))     res = ["blue",     "a"];
-        else if (c.match(/blbl D. o[oy]/))   res = ["cinnamon", "o"];
-        else if (c.match(/blbl dd o[oy]/))   res = ["fawn",     "p"];
-        else if (c.match(/[bl/]+ dd o[oy]/)) res = ["lilac",    "c"];
-        else if (c.match(/B. D. O[Oy]/))     res = ["red",      "d"];
-        else if (c.match(/b. D. O[Oy]/))     res = ["red",      "d"];
-        else if (c.match(/blbl D. O[Oy]/))   res = ["red",      "d"];
-        else if (c.match(/B. dd O[Oy]/))     res = ["cream",    "e"];
-        else if (c.match(/b. dd O[Oy]/))     res = ["cream",    "e"];
-        else if (c.match(/blbl dd O[Oy]/))   res = ["cream",    "e"];
-        else if (c.match(/-- dd o[oy]/))     res = ["blue(fawn?)", "a/p?"];
-        else if (c.match(/B. D. Oo/))        res = ["black tortie", "f"];
-        else if (c.match(/B. dd Oo/))        res = ["chocolatetortie", "h"];
-        else if (c.match(/bbl? D. Oo/))      res = ["lilactortie", "j"];
-        else if (c.match(/blbl dd Oo/))      res = ["cinnamontortie", "q"];
-        else if (c.match(/-- D. o[oy]/))     res = ["black(cinnamon?)", "n/o?"];
-        else if (c.match(/B. -- o[oy]/))     res = ["black(blue?)", "n/a?"];
-        else if (c.match(/-- -- o[oy]/))     res = ["black ???", "n??"];
+        if      (c.match(/B(B|bl|b|b\/bl|-) D. o[oy]/))     res = ["black",    "n"];
+        else if (c.match(/B(B|bl|b|b\/bl|-) dd o[oy]/))     res = ["blue",     "a"];
+        else if (c.match(/B(B|bl|b|b\/bl|-) d- o[oy]/))     res = ["black?/blue?",     "n?/a?"];
+        else if (c.match(/blbl D. o[oy]/))                  res = ["cinnamon", "o"];
+        else if (c.match(/bl- D. o[oy]/))                   res = ["black?/cinnamon?", "n?/o?"];
+        else if (c.match(/blbl dd o[oy]/))                  res = ["fawn",     "p"];
+        else if (c.match(/-- d- o[oy]/))                    res = ["black?/blue?/fawn?", "n?/a?/p?"];
+        else if (c.match(/[bl/]+ dd o[oy]/))                res = ["lilac",    "c"];
+        else if (c.match(/B(B|bl|b|b\/bl|-) D. O[Oy]/))     res = ["red",      "d"];
+        else if (c.match(/b[b/l-]+ D. O [Oy]/))             res = ["red",      "d"];
+        else if (c.match(/-- D. O[Oy]/))                    res = ["red",      "d"];
+        else if (c.match(/blbl D. O[Oy]/))                  res = ["red",      "d"];
+        else if (c.match(/B(B|bl|b|b\/bl|-) dd O[Oy]/))     res = ["cream",    "e"];
+        else if (c.match(/-- dd O[Oy]/))                    res = ["cream",    "e"];
+        else if (c.match(/B(B|bl|b|b\/bl|-) [d-]- O[Oy]/))  res = ["red?/cream?",    "d?/e?"];
+        else if (c.match(/[b[b/l-]+ [d-]- O[Oy]/))          res = ["red?/cream?",    "d?/e?"];
+        else if (c.match(/b[b/l-]+ dd O[Oy]/))              res = ["cream",    "e"];
+        else if (c.match(/blbl dd O[Oy]/))                  res = ["cream",    "e"];
+        else if (c.match(/-- dd o[oy]/))                    res = ["blue(fawn?)", "a/p?"];
+        else if (c.match(/B(B|bl|b|b\/bl|-) D. Oo/))        res = ["black tortie", "f"];
+        else if (c.match(/-- D. Oo/))                       res = ["black?/lilac tortie", "f/j?"];
+        else if (c.match(/B(B|bl|b|b\/bl|-) dd Oo/))        res = ["chocolatetortie", "h"];
+        else if (c.match(/B(B|bl|b|b\/bl|-) [d-]- Oo/))     res = ["black?/chocolate? tortie", "f?/h?"]; 
+        else if (c.match(/-- d. Oo/))                       res = ["black/chocolat/lilac/cinamon tortie", "f?/h?/j?/q?"];
+        else if (c.match(/b(b|b\/bl|-) D. Oo/))             res = ["lilactortie", "j"]; 
+        else if (c.match(/bl. D. Oo/))                      res = ["black?/lilac? tortie", "f?/j?"];
+        else if (c.match(/blbl dd Oo/))                     res = ["cinnamontortie", "q"];
+        else if (c.match(/b[l-]+ [d-]- Oo/))                  res = ["black/chocolat/lilac/cinamon tortie", "f?/h?/j?/q?"];
+        else if (c.match(/-- D. o[oy]/))                    res = ["black(cinnamon?)", "n/o?"];
+        else if (c.match(/B(B|bl|b|b\/bl|-) -- o[oy]/))     res = ["black(blue?)", "n/a?"];
+        else if (c.match(/[b-]l?- -- o[oy]/))               res = ["black ???", "n??"];
         else res = ["???", "?"];
 
         //console.log(res);
         this.color = res[0];
         this.color_ems = res[1];
-        this.text = this.sex + " " + this.color + " (" + this.color_ems + ")";
+        this.text = this.sex + " " + this.color;
     };
 };
 
@@ -96,6 +108,8 @@ class CatAggouti {
                 this.text = "solid?"; break;
             case "Aa":
                 this.text = "aggouti (porteur solid)"; break;
+            case "--":
+                this.text = "solide?/aggouti?"; break;
             default:
                 this.text = "aggouti";
         };
@@ -113,6 +127,8 @@ class CatPoint {
                 this.text = "classic (porteur point)"; break;
             case "cs-":
                 this.text = "point ?"; break;
+            case "--":
+                this.text = "classic?/point?"; break;
             default:
                 this.text = "classic";
         };
