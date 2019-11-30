@@ -89,13 +89,13 @@
 
             <h3>Les chatons pourraient être:</h3>
 
-            <h4>couleur</h4>
+            <h4>Couleurs:</h4>
             <table class="table" id="kitten-colors-list">
                 <tr>        
-                    <th><a @click="sort('sex')">sex</a></th>
-                    <th><a @click="sort('color')">color</a></th>
-                    <th><a @click="sort('genotype')">genotype</a></th>
-                    <th><a @click="sort('ems')">ems</a></th>
+                    <th>sex <a @click="sort('sex')"><i class="fa fa-arrows-v"></i></a></th>
+                    <th>color <a @click="sort('color')"><i class="fa fa-arrows-v"></i></a></th>
+                    <th>genotype <a @click="sort('genotype')"><i class="fa fa-arrows-v"></i></a></th>
+                    <th>ems <a @click="sort('ems')"><i class="fa fa-arrows-v"></i></a></th>
                     <th>comments</th>
                 </tr>
                 <tr v-for="kit_color in sortedKitten">
@@ -106,7 +106,8 @@
                     <td>{{kit_color.comments.join(", ")}}</td>
                 </tr>
             </table>
-            <h4>silver</h4>
+
+            <h4>Silver:</h4>
             <table class="table" id="kitten-silver-list">
 
                 <tr v-for="kit_color in kitten_colors.silver">
@@ -114,14 +115,15 @@
                     <td>{{kit_color.text}}</td>
                 </tr>
             </table>
-            <h4>aggouti</h4>
+            <h4>Aggouti:</h4>
             <table class="table" id="kitten-aggouti-list">
                 <tr v-for="kit_color in kitten_colors.aggouti">
                     <td>{{kit_color.genotype}}</td>
                     <td>{{kit_color.text}}</td>
                 </tr>
             </table>
-            <h4>point</h4>
+
+            <h4>Point:</h4>
             <table class="table" id="kitten-siamese-list">
                 <tr v-for="kit_color in kitten_colors.siamese">
                     <td>{{kit_color.genotype}}</td>
@@ -130,6 +132,7 @@
             </table>
         </div>
     </div>
+    <script src="https://use.fontawesome.com/a3a579ef64.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
