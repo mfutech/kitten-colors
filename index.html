@@ -91,17 +91,19 @@
 
             <h4>couleur</h4>
             <table class="table" id="kitten-colors-list">
-                    <tr>
-                            <th>genotype</th>
-                            <th>sex</th>
-                            <th>color</th>
-                            <th>ems</th>
-                        </tr>
-                    <tr v-for="kit_color in kitten_colors.colors">
-                    <td>{{kit_color.genotype}}</td>
+                <tr>        
+                    <th><a @click="sort('sex')">sex</a></th>
+                    <th><a @click="sort('color')">color</a></th>
+                    <th><a @click="sort('genotype')">genotype</a></th>
+                    <th><a @click="sort('ems')">ems</a></th>
+                    <th>comments</th>
+                </tr>
+                <tr v-for="kit_color in sortedKitten">
                     <td>{{kit_color.sex}}</td>
                     <td>{{kit_color.color}}</td>
+                    <td>{{kit_color.genotype}}</td>
                     <td>{{kit_color.color_ems}}</td>
+                    <td>{{kit_color.comments.join(", ")}}</td>
                 </tr>
             </table>
             <h4>silver</h4>
@@ -126,7 +128,6 @@
                     <td>{{kit_color.text}}</td>
                 </tr>
             </table>
-
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

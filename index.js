@@ -42,6 +42,8 @@ var breeding = new Vue({
     mother_color: "",
     mother_genotype: "",
     kitten_colors: ["-", "-"],
+    currentSort:'name',
+    currentSortDir:'asc'
   },
   methods: {
     do_breeding: function () {
@@ -50,6 +52,29 @@ var breeding = new Vue({
       this.mother_color = ems_translate(this.mother_ems);
       this.mother_genotype = ems_genotype(this.mother_ems, 'female');
       this.kitten_colors = ems_breeding(this.father_ems, this.mother_ems)
+    },
+    sort: function(s) {
+      //if s == current sort, reverse
+      if(s === this.currentSort) {
+        this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';
+      }
+      this.currentSort = s;
+    }
+  },
+  computed:{
+    sortedKitten:function() {
+      if (this.kitten_colors.colors) { // object is initialized
+        return this.kitten_colors.colors.sort((a,b) => {
+          let modifier = 1;
+          if(this.currentSortDir === 'desc') modifier = -1;
+          if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+          if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+          return 0;
+        });
+      }
+      else {
+        return [];  
+      }
     }
   }
 });

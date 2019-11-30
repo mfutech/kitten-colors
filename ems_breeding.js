@@ -38,7 +38,7 @@ class CatColor{
         this.genotype = genotype2Str([this.base, this.dilution, this.fullcolor]);
         this.diluted = (dilution == 'dd');
         this.chocolate = (fullcolor.match(/^B/) == null && fullcolor != "--");
-        this.cinamon = (fullcolor = 'blbl');
+        this.cinamon = (fullcolor == 'blbl');
         this.sex = (base.slice(-1) == "y" ? "male" : "femelle");
         let c = [ this.fullcolor, this.dilution, this.base].join(" ");
         let res;
@@ -172,6 +172,7 @@ class CatColor{
         if (fullcolor == "Bb")  comments.push("porteur de chocolat");
         if (fullcolor == "Bbl") comments.push("porteur de cinamon");
         if (fullcolor == "--")  comments.push("chocolat/cinamon indéterminé");
+        //comments.push("fullcolor: "+fullcolor);
 
         //console.log(res);
         this.color = color;
@@ -284,18 +285,9 @@ function ems_breeding(father_ems, mother_ems) {
     let colors = [];
     full_result.basic_color.forEach(bc =>
         full_result.diluted_color.forEach(dc =>
-            full_result.fullcolor_color.forEach( function(fc) {
-                let c = new CatColor(bc, dc, fc);
-                colors.push(c);
-                /*
-                if (colors[c.color]){
-                    colors[c.color].push(c);
-                }
-                else{
-                    colors[c.color] = [ c ];  
-                };
-                */
-            })
+            full_result.fullcolor_color.forEach( fc => 
+                colors.push(new CatColor(bc, dc, fc))
+            )
         )
     );
 
