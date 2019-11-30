@@ -167,11 +167,16 @@ class CatColor{
 
         // add comment
         let comments = [];
-        if (dilution == "Dd")   comments.push("porteur de dilution");
-        if (dilution == "--")   comments.push("dilution indéterminée");
-        if (fullcolor == "Bb")  comments.push("porteur de chocolat");
-        if (fullcolor == "Bbl") comments.push("porteur de cinamon");
-        if (fullcolor == "--")  comments.push("chocolat/cinamon indéterminé");
+        if (dilution == "Dd" || 
+            dilution == "d-")       comments.push("porteur de dilution");
+        if (dilution == "--")       comments.push("dilution indéterminée");
+        if (fullcolor == "Bb" || 
+            fullcolor == "b-")      comments.push("porteur de chocolat");
+        if (fullcolor == "Bbl"|| 
+            fullcolor == "bl-")     comments.push("porteur de cinamon");
+        if (fullcolor == "Bb/bl" || 
+            fullcolor =="b/bl-")    comments.push("porteur cinamon ou chocolat");
+        if (fullcolor == "--")      comments.push("chocolat/cinamon indéterminé");
         //comments.push("fullcolor: "+fullcolor);
 
         //console.log(res);
