@@ -37,6 +37,7 @@ class CatColor{
         this.fullcolor = fullcolor;
         this.genotype = genotype2Str([this.base, this.dilution, this.fullcolor]);
         this.diluted = (dilution == 'dd');
+        this.chocolate = (fullcolor.match(/^B/) == null && fullcolor != "--");
         this.cinamon = (fullcolor = 'blbl');
         this.sex = (base.slice(-1) == "y" ? "male" : "femelle");
         let c = [ this.fullcolor, this.dilution, this.base].join(" ");
@@ -75,10 +76,110 @@ class CatColor{
         else if (c.match(/[b-]l?- -- o[oy]/))               res = ["black ???", "n??"];
         else res = ["???", "?"];
 
+        // other color calculator
+        let color = "";
+        let ems = "";
+        switch (this.base) {
+            case "oo": //black female
+            case "oy": //black male
+                if (this.diluted) { // dd
+                    if (this.chocolate) { // blb bbl
+                        if (this.cinamon) { // blbl
+                            color = "fawn";
+                            ems = "p";
+                        }
+                        else {
+                            color = "lilac";
+                            ems = "c";
+                        }
+                    }
+                    else { // BB Bb
+                        color = "blue";
+                        ems = "a";
+                    }
+                }
+                else { // DD Dd
+                    if (this.chocolate) { // blb bbl
+                        if (this.cinamon) { // blbl
+                            color = "cinnamon";
+                            ems = "o";
+                        }
+                        else {
+                            color = "chocolate";
+                            ems = "b";
+                        }
+                    }
+                    else { // Bb B-
+                        color = "black";
+                        ems = "n";
+                    }
+                }
+                break;
+            case "OO":
+            case "Oy":
+                if (this.diluted) {
+                    color = "cream";
+                    ems = "e";
+                }
+                else {
+                    color = "red";
+                    ems = "d";
+                }
+                break;
+            case "Oo": // tortie
+                if (this.diluted) { // dd
+                    if (this.chocolate) { // blb bbl
+                        if (this.cinamon) { // blbl
+                            color = "fawntortie";
+                            ems = "r";
+                        }
+                        else {
+                            color = "lilactortie";
+                            ems = "j";
+                        }
+                    }
+                    else { // BB Bb
+                        color = "bluetortie";
+                        ems = "g";
+                    }
+                }
+                else { // DD Dd
+                    if (this.chocolate) { // blb bbl
+                        if (this.cinamon) { // blbl
+                            color = "cinnamontortie";
+                            ems = "q";
+                        }
+                        else {
+                            color = "chocolatetortie";
+                            ems = "h";
+                        }
+                    }
+                    else { // Bb B-
+                        color = "blacktortie";
+                        ems = "f";
+                    }
+                }
+                break;
+            default:
+                color = "IMPOSSIBLE";
+                ems = "?";
+        };
+
+        // add comment
+        let comments = [];
+        if (dilution == "Dd")   comments.push("porteur de dilution");
+        if (dilution == "--")   comments.push("dilution indéterminée");
+        if (fullcolor == "Bb")  comments.push("porteur de chocolat");
+        if (fullcolor == "Bbl") comments.push("porteur de cinamon");
+        if (fullcolor == "--")  comments.push("chocolat/cinamon indéterminé");
+
         //console.log(res);
-        this.color = res[0];
-        this.color_ems = res[1];
+        this.color = color;
+        this.color_ems = ems;
+        this.possible_color = res[0];
+        this.possible_ems = res[1];
         this.text = this.sex + " " + this.color;
+        this.comments = comments;
     };
 };
 
@@ -183,9 +284,18 @@ function ems_breeding(father_ems, mother_ems) {
     let colors = [];
     full_result.basic_color.forEach(bc =>
         full_result.diluted_color.forEach(dc =>
-            full_result.fullcolor_color.forEach(fc=>
-                colors.push( new CatColor(bc, dc, fc)) 
-            )
+            full_result.fullcolor_color.forEach( function(fc) {
+                let c = new CatColor(bc, dc, fc);
+                colors.push(c);
+                /*
+                if (colors[c.color]){
+                    colors[c.color].push(c);
+                }
+                else{
+                    colors[c.color] = [ c ];  
+                };
+                */
+            })
         )
     );
 
