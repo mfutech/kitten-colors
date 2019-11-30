@@ -41,8 +41,8 @@ var breeding = new Vue({
     mother_ems: "",
     mother_color: "",
     mother_genotype: "",
-    kitten_colors: ["-", "-"],
-    currentSort:'name',
+    kitten_colors: [],
+    currentSort:'color',
     currentSortDir:'asc'
   },
   methods: {

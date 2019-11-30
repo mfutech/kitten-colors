@@ -243,6 +243,37 @@ class CatPoint {
 
 };
 
+class CatColorCollection{
+    constructor ()
+    {
+        this.colors = {};
+        this.keys = new Set();
+        this.counters = {};
+        this.length = 0
+    };
+
+    add(cat_color) {
+        // cat_color: CatColor
+        let key = cat_color.sex + " " + cat_color.color;
+        if (this.colors[key]){
+            this.colors[key].push(cat_color);
+        }
+        else {
+            this.colors[key] = [ cat_color];
+        };
+        this.keys.add(key);
+        this.counters[key] = (this.counters[key] ? this.counters[key] : 0 ) + 1;
+        this.length += 1;
+    };
+    as_array(){
+        let res = [];
+        this.keys.forEach( key =>
+            this.colors[key].forEach ( color =>
+                res.push(color)));
+        return res;
+    }
+};
+
 function compose_gen(gen1, gen2) {
     let res = [ gen1, gen2 ].sort().join("");
     if (res[0] == "-") { // if first caracter is "-" then if must be put at the end
@@ -288,16 +319,18 @@ function ems_breeding(father_ems, mother_ems) {
     );
 
     let colors = [];
+    let color_collection = new CatColorCollection();
     full_result.basic_color.forEach(bc =>
         full_result.diluted_color.forEach(dc =>
             full_result.fullcolor_color.forEach( fc => 
-                colors.push(new CatColor(bc, dc, fc))
+                color_collection.add(new CatColor(bc, dc, fc))
             )
         )
     );
 
     let result = {
-        colors:     colors,
+        colors:     color_collection.as_array(),
+        collection: color_collection,
         silver:     full_result.silver_color.map(c => new CatSilver(c)),
         aggouti:    full_result.modifier_aggouti.map(c => new CatAggouti(c)),
         siamese:    full_result.modifier_siamese.map(c => new CatPoint(c)),

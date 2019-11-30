@@ -106,10 +106,18 @@
                     <td>{{kit_color.comments.join(", ")}}</td>
                 </tr>
             </table>
+            <div v-if="kitten_colors.collection">
+                <h4>Statistics</h4>
+                <table class="table">
+                    <tr v-for="(count, key) in kitten_colors.collection.counters">
+                        <td>{{key}}</td>
+                        <td>{{count/kitten_colors.collection.length * 100}} %</td>
+                    </tr>
+                </table>
+            </div>
 
             <h4>Silver:</h4>
             <table class="table" id="kitten-silver-list">
-
                 <tr v-for="kit_color in kitten_colors.silver">
                     <td>{{kit_color.genotype}}</td>
                     <td>{{kit_color.text}}</td>
