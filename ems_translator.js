@@ -80,7 +80,7 @@ color_names = {
     // first element are letters giving the color name
     color = code_list[0];
     // all other element are number describing patterns
-    pattern_list = code_list.slice(1);
+    pattern_list = code_list.slice(1).filter( e=> e.length>0 );
     
     return {
         "color": color,
@@ -91,21 +91,36 @@ color_names = {
   function ems_translate(ems_code) {
 
     ems = ems_parse(ems_code);
+    let colors_error = [];
   
     // translate letter into colornmaes
     colors = ems.color.split("").map(function (letter) {
-      return color_names[letter];
+      c = color_names[letter];
+      if (! c) {
+        colors_error.push(letter);
+      };
+      return c;
     });
   
     // translate numbers into patterns names
+    let patterns_error = [];
+
     patterns = ems.patterns.map(function (modifier) {
-      return pattern_names[modifier];
+      p = pattern_names[modifier];
+      if (!p){
+        patterns_error.push(modifier);
+      };
+      return p;
     });
   
     // contruct full color name
-    full_color = colors.join(" ") + " " + patterns.join(" ");
-
-    return full_color;
+    return {
+      full_color: colors.join(" ") + " " + patterns.join(" "),
+      patterns: patterns,
+      colors: colors,
+      colors_error: colors_error,
+      patterns_error: patterns_error
+    };
   }
   
   /*
