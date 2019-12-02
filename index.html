@@ -23,19 +23,27 @@
             la justesse du code (par exemple il traduira w 33 sans sourcillier).
         </p>
         <div id="EMSCodeTranslator">
+            <div v-if="colors_error" class="alert alert-warning" role="alert">
+                <strong>Couleur(s) inconnue(s)</strong>: {{color.colors_error.join(", ")}}
+            </div>
+            <div v-if="patterns_error" class="alert alert-warning" role="alert">
+                <strong>Modificateur(s) inconnu(s)</strong>:{{color.patterns_error.join(", ")}}
+            </div>
             <table class="table">
                 <tr>
                     <th>Code EMS:</th>
                     <td><input v-model="ems_code">
-                        <button type="submit" class="btn btn-primary" v-on:click="do_translation">traduire</button></td>
+                        <!--button type="submit" class="btn btn-primary" v-on:click="do_translation">traduire</button-->
+                    </td>
                 </tr>
                 <tr>
                     <th>Couleur:</th>
-                    <td>{{color}}</td>
+                    <td>{{translated_color}}
+                    </td>
                 </tr>
                 <tr>
                     <th>Genotype</th>
-                    <td>{{genotype}}</td>
+                    <td>{{translated_genotype}}</td>
                 </tr>
             </table>
 
@@ -61,24 +69,47 @@
             <em>AUCUNE GARANTIE SUR LA QUALITE OU L'EXACTITUDE DU RESULTAT</em>
         </p>
         <div id="Breeding">
+            <div v-if="father_colors_error || mother_colors_error" class="alert alert-warning" role="alert">
+                <strong>Couleur(s) inconnue(s)</strong>:
+                {{[father_color.colors_error, mother_color.colors_error].flat().join(", ")}}
+            </div>
+            <div v-if="father_patterns_error || mother_colors_error" class="alert alert-warning" role="alert">
+                <strong>Modificateur(s) inconnu(s)</strong>:
+                {{[father_color.patterns_error, mother_color.patterns_error].flat().join(", ")}}
+            </div>
             <table class="table">
                 <tr>
                     <th></th>
                     <th>Code EMS</th>
                     <th>Couleur</th>
                     <th>Genotype</th>
+                    <th></th>
                 </tr>
                 <tr>
                     <th>Pére:</th>
                     <td><input v-model="father_ems"></td>
-                    <td>{{father_color}}</td>
-                    <td>{{father_genotype}}</td>
+                    <td>{{father_translated_color}}</td>
+                    <td><input v-model="father_genotype"></td>
+                    <td>
+                        <div v-if="father_parsed_genotype_error" class="alert alert-warning"
+                            role="alert">
+                            <strong>Erreur</strong>:
+                            {{father_parsed_genotype.genes_error.join(", ")}}
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <th>Mère:</th>
                     <td><input v-model="mother_ems"></td>
-                    <td>{{mother_color}}</td>
-                    <td>{{mother_genotype}}</td>
+                    <td>{{mother_translated_color}}</td>
+                    <td><input v-model="mother_genotype"></td>
+                    <td>
+                        <div v-if="mother_parsed_genotype_error" class="alert alert-warning"
+                            role="alert">
+                            <strong>Erreur</strong>:
+                            {{mother_parsed_genotype.genes_error.join(", ")}}
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="4">
@@ -91,7 +122,7 @@
 
             <h4>Couleurs:</h4>
             <table class="table" id="kitten-colors-list">
-                <tr>        
+                <tr>
                     <th>sex <a @click="sort('sex')"><i class="fa fa-arrows-v"></i></a></th>
                     <th>color <a @click="sort('color')"><i class="fa fa-arrows-v"></i></a></th>
                     <th>genotype <a @click="sort('genotype')"><i class="fa fa-arrows-v"></i></a></th>
@@ -150,7 +181,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-        
+
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!--script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script-->
     <script src="ems_translator.js"></script>

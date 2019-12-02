@@ -304,6 +304,11 @@ function ems_breeding(father_ems, mother_ems) {
     let father_genotype = ems_genotype_obj(father_ems, 'male');
     let mother_genotype = ems_genotype_obj(mother_ems, 'female');
 
+    return ems_breeding_genotype(father_genotype, mother_genotype);
+};
+
+function ems_breeding_genotype(father_genotype, mother_genotype) {
+
     let props = [
         'basic_color',
         'diluted_color',
