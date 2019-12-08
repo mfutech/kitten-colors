@@ -23,58 +23,17 @@
 
 "use strict"
 
-function uniq (arr) {
-    return Array.from(
-        new Set (arr) 
-    );
-}
 
-class CatColor{
+class CatColor {
 
-    constructor(base, dilution, fullcolor){
+    constructor(base, dilution, fullcolor, silver, aggouti, siamese) {
         this.base = base;
         this.dilution = dilution;
         this.fullcolor = fullcolor;
-        this.genotype = genotype2Str([this.base, this.dilution, this.fullcolor]);
-        this.diluted = (dilution == 'dd');
-        this.chocolate = (fullcolor.match(/^B/) == null && fullcolor != "--");
-        this.cinamon = (fullcolor == 'blbl');
+        this.is_diluted = (dilution == 'dd');
+        this.is_chocolate = (fullcolor.match(/^B/) == null && fullcolor != "--");
+        this.is_cinamon = (fullcolor == 'blbl');
         this.sex = (base.slice(-1) == "y" ? "male" : "femelle");
-        let c = [ this.fullcolor, this.dilution, this.base].join(" ");
-        let res;
-        //console.log(c);
-        if      (c.match(/B(B|bl|b|b\/bl|-) D. o[oy]/))     res = ["black",    "n"];
-        else if (c.match(/B(B|bl|b|b\/bl|-) dd o[oy]/))     res = ["blue",     "a"];
-        else if (c.match(/B(B|bl|b|b\/bl|-) d- o[oy]/))     res = ["black?/blue?",     "n?/a?"];
-        else if (c.match(/blbl D. o[oy]/))                  res = ["cinnamon", "o"];
-        else if (c.match(/bl- D. o[oy]/))                   res = ["black?/cinnamon?", "n?/o?"];
-        else if (c.match(/blbl dd o[oy]/))                  res = ["fawn",     "p"];
-        else if (c.match(/-- d- o[oy]/))                    res = ["black?/blue?/fawn?", "n?/a?/p?"];
-        else if (c.match(/[bl/]+ dd o[oy]/))                res = ["lilac",    "c"];
-        else if (c.match(/B(B|bl|b|b\/bl|-) D. O[Oy]/))     res = ["red",      "d"];
-        else if (c.match(/b[b/l-]+ D. O [Oy]/))             res = ["red",      "d"];
-        else if (c.match(/-- D. O[Oy]/))                    res = ["red",      "d"];
-        else if (c.match(/blbl D. O[Oy]/))                  res = ["red",      "d"];
-        else if (c.match(/B(B|bl|b|b\/bl|-) dd O[Oy]/))     res = ["cream",    "e"];
-        else if (c.match(/-- dd O[Oy]/))                    res = ["cream",    "e"];
-        else if (c.match(/B(B|bl|b|b\/bl|-) [d-]- O[Oy]/))  res = ["red?/cream?",    "d?/e?"];
-        else if (c.match(/[b[b/l-]+ [d-]- O[Oy]/))          res = ["red?/cream?",    "d?/e?"];
-        else if (c.match(/b[b/l-]+ dd O[Oy]/))              res = ["cream",    "e"];
-        else if (c.match(/blbl dd O[Oy]/))                  res = ["cream",    "e"];
-        else if (c.match(/-- dd o[oy]/))                    res = ["blue(fawn?)", "a/p?"];
-        else if (c.match(/B(B|bl|b|b\/bl|-) D. Oo/))        res = ["black tortie", "f"];
-        else if (c.match(/-- D. Oo/))                       res = ["black?/lilac tortie", "f/j?"];
-        else if (c.match(/B(B|bl|b|b\/bl|-) dd Oo/))        res = ["chocolatetortie", "h"];
-        else if (c.match(/B(B|bl|b|b\/bl|-) [d-]- Oo/))     res = ["black?/chocolate? tortie", "f?/h?"]; 
-        else if (c.match(/-- d. Oo/))                       res = ["black/chocolat/lilac/cinamon tortie", "f?/h?/j?/q?"];
-        else if (c.match(/b(b|b\/bl|-) D. Oo/))             res = ["lilactortie", "j"]; 
-        else if (c.match(/bl. D. Oo/))                      res = ["black?/lilac? tortie", "f?/j?"];
-        else if (c.match(/blbl dd Oo/))                     res = ["cinnamontortie", "q"];
-        else if (c.match(/b[l-]+ [d-]- Oo/))                  res = ["black/chocolat/lilac/cinamon tortie", "f?/h?/j?/q?"];
-        else if (c.match(/-- D. o[oy]/))                    res = ["black(cinnamon?)", "n/o?"];
-        else if (c.match(/B(B|bl|b|b\/bl|-) -- o[oy]/))     res = ["black(blue?)", "n/a?"];
-        else if (c.match(/[b-]l?- -- o[oy]/))               res = ["black ???", "n??"];
-        else res = ["???", "?"];
 
         // other color calculator
         let color = "";
@@ -82,9 +41,9 @@ class CatColor{
         switch (this.base) {
             case "oo": //black female
             case "oy": //black male
-                if (this.diluted) { // dd
-                    if (this.chocolate) { // blb bbl
-                        if (this.cinamon) { // blbl
+                if (this.is_diluted) { // dd
+                    if (this.is_chocolate) { // blb bbl
+                        if (this.is_cinamon) { // blbl
                             color = "fawn";
                             ems = "p";
                         }
@@ -99,8 +58,8 @@ class CatColor{
                     }
                 }
                 else { // DD Dd
-                    if (this.chocolate) { // blb bbl
-                        if (this.cinamon) { // blbl
+                    if (this.is_chocolate) { // blb bbl
+                        if (this.is_cinamon) { // blbl
                             color = "cinnamon";
                             ems = "o";
                         }
@@ -117,7 +76,7 @@ class CatColor{
                 break;
             case "OO":
             case "Oy":
-                if (this.diluted) {
+                if (this.is_diluted) {
                     color = "cream";
                     ems = "e";
                 }
@@ -127,9 +86,9 @@ class CatColor{
                 }
                 break;
             case "Oo": // tortie
-                if (this.diluted) { // dd
-                    if (this.chocolate) { // blb bbl
-                        if (this.cinamon) { // blbl
+                if (this.is_diluted) { // dd
+                    if (this.is_chocolate) { // blb bbl
+                        if (this.is_cinamon) { // blbl
                             color = "fawntortie";
                             ems = "r";
                         }
@@ -144,8 +103,8 @@ class CatColor{
                     }
                 }
                 else { // DD Dd
-                    if (this.chocolate) { // blb bbl
-                        if (this.cinamon) { // blbl
+                    if (this.is_chocolate) { // blb bbl
+                        if (this.is_cinamon) { // blbl
                             color = "cinnamontortie";
                             ems = "q";
                         }
@@ -167,85 +126,73 @@ class CatColor{
 
         // add comment
         let comments = [];
-        if (dilution == "Dd" || 
-            dilution == "d-")       comments.push("porteur de dilution");
-        if (dilution == "--")       comments.push("dilution indéterminée");
-        if (fullcolor == "Bb" || 
-            fullcolor == "b-")      comments.push("porteur de chocolat");
-        if (fullcolor == "Bbl"|| 
-            fullcolor == "bl-")     comments.push("porteur de cinamon");
-        if (fullcolor == "Bb/bl" || 
-            fullcolor =="b/bl-")    comments.push("porteur cinamon ou chocolat");
-        if (fullcolor == "--")      comments.push("chocolat/cinamon indéterminé");
+        if (dilution == "Dd" ||
+            dilution == "d-") comments.push("porteur de dilution");
+        if (dilution == "--") comments.push("dilution indéterminée");
+        if (fullcolor == "Bb" ||
+            fullcolor == "b-") comments.push("porteur de chocolat");
+        if (fullcolor == "Bbl" ||
+            fullcolor == "bl-") comments.push("porteur de cinamon");
+        if (fullcolor == "Bb/bl" ||
+            fullcolor == "b/bl-") comments.push("porteur cinamon ou chocolat");
+        if (fullcolor == "--") comments.push("chocolat/cinamon indéterminé");
         //comments.push("fullcolor: "+fullcolor);
 
         //console.log(res);
         this.color = color;
         this.color_ems = ems;
-        this.possible_color = res[0];
-        this.possible_ems = res[1];
         this.text = this.sex + " " + this.color;
         this.comments = comments;
-    };
-};
 
-class CatSilver {
-    constructor(silver){
+        // take care of silver
         this.silver = silver;
-        this.genotype = silver
-        switch (silver) {
-            case 'ii': 
-                this.text = "non-silver"; break;
-            case "i-":
-                this.text = "non-silver?"; break;
-            default:
-                this.text = "silver";
-        };
-    };
-};
+        this.is_silver = (silver.match(/I[Ii-]/) != null);
+        if (this.is_silver) {
+            this.color_ems += "s";
+            this.color += " silver";
+        }
 
-class CatAggouti {
-    constructor (aggouti) {
-        this.aggouti = aggouti;
-        this.genotype = aggouti; 
-        switch (aggouti) {
-            case "aa":
-               this.text = "solid"; break;
-            case "a-":
-                this.text = "solid?"; break;
-            case "Aa":
-                this.text = "aggouti (porteur solid)"; break;
-            case "--":
-                this.text = "solide?/aggouti?"; break;
-            default:
-                this.text = "aggouti";
-        };
-    }
-};
-
-class CatPoint {
-    constructor (point) {
-        this.point = point;
-        this.genotype = point;
-        switch(point) {
+        // take care of siamese
+        this.is_siamese = false;
+        this.siamese = siamese;
+        switch (siamese) {
             case "cscs":
-                this.text = "point"; break;
+                this.is_siamese = true;
+                this.color += " point";
+                this.color_ems += " 33";
+                break;
             case "Cscs":
-                this.text = "classic (porteur point)"; break;
             case "cs-":
-                this.text = "point ?"; break;
+                this.comments.push("porteur point"); break;
             case "--":
-                this.text = "classic?/point?"; break;
-            default:
-                this.text = "classic";
+                this.comments.push("point indéterminé"); break;
         };
-    };
 
+        // take care of aggouti
+        this.aggouti = aggouti;
+        if (aggouti.match(/A[Aa-]/) != null) {
+            this.is_aggouti = true;
+            this.color += " aggouti";
+            this.color_ems += " 21";
+        }
+        else if (aggouti.match(/Aa|a-/)) {
+            this.comments.push("porteur solid");
+        }
+        else if (aggouti == "--") {
+            this.comments.push("aggouti indéterminé");
+        }
+
+        this.is_solid = (aggouti == "aa");
+
+
+        // fix genotype
+        this.genotype = genotype2Str([this.base, this.dilution, this.fullcolor, this.silver, this.aggouti, this.siamese]);
+
+    };
 };
 
-class CatColorCollection{
-    constructor ()
-    {
+class CatColorCollection {
+    constructor() {
         this.colors = {};
         this.keys = new Set();
         this.counters = {};
@@ -255,27 +202,27 @@ class CatColorCollection{
     add(cat_color) {
         // cat_color: CatColor
         let key = cat_color.sex + " " + cat_color.color;
-        if (this.colors[key]){
+        if (this.colors[key]) {
             this.colors[key].push(cat_color);
         }
         else {
-            this.colors[key] = [ cat_color];
+            this.colors[key] = [cat_color];
         };
         this.keys.add(key);
-        this.counters[key] = (this.counters[key] ? this.counters[key] : 0 ) + 1;
+        this.counters[key] = (this.counters[key] ? this.counters[key] : 0) + 1;
         this.length += 1;
     };
-    as_array(){
+    as_array() {
         let res = [];
-        this.keys.forEach( key =>
-            this.colors[key].forEach ( color =>
+        this.keys.forEach(key =>
+            this.colors[key].forEach(color =>
                 res.push(color)));
         return res;
     }
 };
 
 function compose_gen(gen1, gen2) {
-    let res = [ gen1, gen2 ].sort().join("");
+    let res = [gen1, gen2].sort().join("");
     if (res[0] == "-") { // if first caracter is "-" then if must be put at the end
         return res.slice(1) + "-";
     }
@@ -284,28 +231,21 @@ function compose_gen(gen1, gen2) {
     }
 };
 
-function combine_genes ( gen_arr1, gen_arr2 ) {
-    let combination = gen_arr1.map ( gen1 => 
-        gen_arr2.map ( gen2 =>
+function combine_genes(gen_arr1, gen_arr2) {
+    let combination = gen_arr1.map(gen1 =>
+        gen_arr2.map(gen2 =>
             compose_gen(gen1, gen2)
         ));
     return uniq(combination.flat());
 };
 
-function genotype2Str ( genotype_arr ) {
-    // console.log(genotype_arr);
-    return uniq(genotype_arr).sort((a, b) => 
-        a.localeCompare(b, undefined, {sensitivity: 'base'})
-        ).join(" ");
+function genotype2Str(genotype_arr) {
+    console.log(genotype_arr);
+    return uniq(genotype_arr).sort((a, b) =>
+        a.localeCompare(b, undefined, { sensitivity: 'base' })
+    ).join(" ");
 };
 
-function ems_breeding(father_ems, mother_ems) {
-
-    let father_genotype = ems_genotype_obj(father_ems, 'male');
-    let mother_genotype = ems_genotype_obj(mother_ems, 'female');
-
-    return ems_breeding_genotype(father_genotype, mother_genotype);
-};
 
 function ems_breeding_genotype(father_genotype, mother_genotype) {
 
@@ -323,22 +263,24 @@ function ems_breeding_genotype(father_genotype, mother_genotype) {
         full_result[prop] = combine_genes(mother_genotype[prop], father_genotype[prop])
     );
 
-    let colors = [];
     let color_collection = new CatColorCollection();
     full_result.basic_color.forEach(bc =>
         full_result.diluted_color.forEach(dc =>
-            full_result.fullcolor_color.forEach( fc => 
-                color_collection.add(new CatColor(bc, dc, fc))
+            full_result.fullcolor_color.forEach(fc =>
+                full_result.silver_color.forEach(sc =>
+                    full_result.modifier_aggouti.forEach(am =>
+                        full_result.modifier_siamese.forEach(sm =>
+                            color_collection.add(new CatColor(bc, dc, fc, sc, am, sm))
+                        )
+                    )
+                )
             )
         )
     );
 
     let result = {
-        colors:     color_collection.as_array(),
+        colors: color_collection.as_array(),
         collection: color_collection,
-        silver:     full_result.silver_color.map(c => new CatSilver(c)),
-        aggouti:    full_result.modifier_aggouti.map(c => new CatAggouti(c)),
-        siamese:    full_result.modifier_siamese.map(c => new CatPoint(c)),
     };
 
     return result;

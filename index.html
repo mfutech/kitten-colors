@@ -140,33 +140,10 @@
                 <table class="table">
                     <tr v-for="(count, key) in kitten_colors.collection.counters">
                         <td>{{key}}</td>
-                        <td>{{count/kitten_colors.collection.length * 100}} %</td>
+                        <td>{{(count/kitten_colors.collection.length * 100).toFixed(2)}} %</td>
                     </tr>
                 </table>
             </div>
-
-            <h4>Silver:</h4>
-            <table class="table" id="kitten-silver-list">
-                <tr v-for="kit_color in kitten_colors.silver">
-                    <td>{{kit_color.genotype}}</td>
-                    <td>{{kit_color.text}}</td>
-                </tr>
-            </table>
-            <h4>Aggouti:</h4>
-            <table class="table" id="kitten-aggouti-list">
-                <tr v-for="kit_color in kitten_colors.aggouti">
-                    <td>{{kit_color.genotype}}</td>
-                    <td>{{kit_color.text}}</td>
-                </tr>
-            </table>
-
-            <h4>Point:</h4>
-            <table class="table" id="kitten-siamese-list">
-                <tr v-for="kit_color in kitten_colors.siamese">
-                    <td>{{kit_color.genotype}}</td>
-                    <td>{{kit_color.text}}</td>
-                </tr>
-            </table>
         </div>
     </div>
     <footer class="page-footer font-small blue pt-4">
@@ -212,6 +189,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!--script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script-->
+    <script src="utils.js"></script>
     <script src="ems_translator.js"></script>
     <script src="ems_genotype.js"></script>
     <script src="ems_breeding.js"></script>
