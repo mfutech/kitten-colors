@@ -91,8 +91,7 @@
                     <td>{{father_translated_color}}</td>
                     <td><input v-model="father_genotype"></td>
                     <td>
-                        <div v-if="father_parsed_genotype_error" class="alert alert-warning"
-                            role="alert">
+                        <div v-if="father_parsed_genotype_error" class="alert alert-warning" role="alert">
                             <strong>Erreur</strong>:
                             {{father_parsed_genotype.genes_error.join(", ")}}
                         </div>
@@ -104,8 +103,7 @@
                     <td>{{mother_translated_color}}</td>
                     <td><input v-model="mother_genotype"></td>
                     <td>
-                        <div v-if="mother_parsed_genotype_error" class="alert alert-warning"
-                            role="alert">
+                        <div v-if="mother_parsed_genotype_error" class="alert alert-warning" role="alert">
                             <strong>Erreur</strong>:
                             {{mother_parsed_genotype.genes_error.join(", ")}}
                         </div>
@@ -171,6 +169,36 @@
             </table>
         </div>
     </div>
+    <footer class="page-footer font-small blue pt-4">
+
+        <!-- Footer Links -->
+        <div class="container-fluid text-center text-md-left">
+            <hr class="clearfix w-100 pb-3">
+
+            <!-- Grid row -->
+            <div class="row">
+                <!-- Grid column -->
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <!-- Content -->
+                    <p>source @ <a
+                            href="https://github.com/mfutech/kitten-colors">https://github.com/mfutech/kitten-colors</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+                <!-- Grid column -->
+                <div class="col-md-3 mb-md-0 mb-3">
+                    <a href="https://info.siberien.ch">info.siberien.ch</a>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-3 mb-md-0 mb-3">
+                    © 2019  <a href="mailto:mfutech@gmail.com">Marc Furrer</a>
+                </div>
+    </footer>
+    <!-- Footer -->
+
+
     <script src="https://use.fontawesome.com/a3a579ef64.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -188,6 +216,7 @@
     <script src="ems_genotype.js"></script>
     <script src="ems_breeding.js"></script>
     <script src="index.js"></script>
+
 
 </body>
 
