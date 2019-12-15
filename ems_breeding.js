@@ -37,7 +37,8 @@ class CatColor {
 
         // other color calculator
         let color = "";
-        let ems = "";
+        let ems_color = [];
+        let ems_modifiers = [];
         switch (this.base) {
             case "oo": //black female
             case "oy": //black male
@@ -45,32 +46,32 @@ class CatColor {
                     if (this.is_chocolate) { // blb bbl
                         if (this.is_cinamon) { // blbl
                             color = "fawn";
-                            ems = "p";
+                            ems_color.push("p");
                         }
                         else {
                             color = "lilac";
-                            ems = "c";
+                            ems_color.push("c");
                         }
                     }
                     else { // BB Bb
                         color = "blue";
-                        ems = "a";
+                        ems_color.push("a");
                     }
                 }
                 else { // DD Dd
                     if (this.is_chocolate) { // blb bbl
                         if (this.is_cinamon) { // blbl
                             color = "cinnamon";
-                            ems = "o";
+                            ems_color.push("o");
                         }
                         else {
                             color = "chocolate";
-                            ems = "b";
+                            ems_color.push("b");
                         }
                     }
                     else { // Bb B-
                         color = "black";
-                        ems = "n";
+                        ems_color.push("n");
                     }
                 }
                 break;
@@ -78,11 +79,11 @@ class CatColor {
             case "Oy":
                 if (this.is_diluted) {
                     color = "cream";
-                    ems = "e";
+                    ems_color.push("e");
                 }
                 else {
                     color = "red";
-                    ems = "d";
+                    ems_color.push("d");
                 }
                 break;
             case "Oo": // tortie
@@ -90,38 +91,38 @@ class CatColor {
                     if (this.is_chocolate) { // blb bbl
                         if (this.is_cinamon) { // blbl
                             color = "fawntortie";
-                            ems = "r";
+                            ems_color.push("r");
                         }
                         else {
                             color = "lilactortie";
-                            ems = "j";
+                            ems_color.push("j");
                         }
                     }
                     else { // BB Bb
                         color = "bluetortie";
-                        ems = "g";
+                        ems_color.push("g");
                     }
                 }
                 else { // DD Dd
                     if (this.is_chocolate) { // blb bbl
                         if (this.is_cinamon) { // blbl
                             color = "cinnamontortie";
-                            ems = "q";
+                            ems_color.push("q");
                         }
                         else {
                             color = "chocolatetortie";
-                            ems = "h";
+                            ems_color.push("h");
                         }
                     }
                     else { // Bb B-
                         color = "blacktortie";
-                        ems = "f";
+                        ems_color.push("f");
                     }
                 }
                 break;
             default:
                 color = "IMPOSSIBLE";
-                ems = "?";
+                ems_color.push("?");
         };
 
         // add comment
@@ -140,7 +141,7 @@ class CatColor {
 
         //console.log(res);
         this.color = color;
-        this.color_ems = ems;
+        //this.color_ems = ems;
         this.text = this.sex + " " + this.color;
         this.comments = comments;
 
@@ -148,32 +149,16 @@ class CatColor {
         this.silver = silver;
         this.is_silver = (silver.match(/I[Ii-]/) != null);
         if (this.is_silver) {
-            this.color_ems += "s";
+            ems_color.push("s");
             this.color += " silver";
         }
-
-        // take care of siamese
-        this.is_siamese = false;
-        this.siamese = siamese;
-        switch (siamese) {
-            case "cscs":
-                this.is_siamese = true;
-                this.color += " point";
-                this.color_ems += " 33";
-                break;
-            case "Cscs":
-            case "cs-":
-                this.comments.push("porteur point"); break;
-            case "--":
-                this.comments.push("point indéterminé"); break;
-        };
 
         // take care of aggouti
         this.aggouti = aggouti;
         if (aggouti.match(/A[Aa-]/) != null) {
             this.is_aggouti = true;
             this.color += " aggouti";
-            this.color_ems += " 21";
+            ems_modifiers.push("21");
         }
         else if (aggouti.match(/Aa|a-/)) {
             this.comments.push("porteur solid");
@@ -184,9 +169,36 @@ class CatColor {
 
         this.is_solid = (aggouti == "aa");
 
+        // take care of siamese
+        this.is_siamese = false;
+        this.siamese = siamese;
+        switch (siamese) {
+            case "cscs":
+                this.is_siamese = true;
+                this.color += " point";
+                ems_modifiers.push("33");
+                break;
+            case "Cscs":
+            case "cs-":
+                this.comments.push("porteur point"); break;
+            case "--":
+                this.comments.push("point indéterminé"); break;
+        };
+
+        this.color_ems = [ ems_color.sort().join(""), 
+                           ems_modifiers ].flat().join(" ");
 
         // fix genotype
-        this.genotype = genotype2Str([this.base, this.dilution, this.fullcolor, this.silver, this.aggouti, this.siamese]);
+        this.genotype = [
+            this.aggouti, // a
+            this.fullcolor, // b
+            this.dilution, // d
+            this.siamese, // c
+            this.silver, //i
+            this.base // o
+        ].join(" ");
+            
+        //            genotype2Str([this.base, this.dilution, this.fullcolor, this.silver, this.aggouti, this.siamese]);
 
     };
 };
@@ -201,7 +213,7 @@ class CatColorCollection {
 
     add(cat_color) {
         // cat_color: CatColor
-        let key = cat_color.sex + " " + cat_color.color;
+        let key = cat_color.sex + " " + cat_color.color + " (" + cat_color.color_ems + ")"
         if (this.colors[key]) {
             this.colors[key].push(cat_color);
         }
