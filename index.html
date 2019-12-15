@@ -14,42 +14,8 @@
 <body>
     <div class="container">
 
-        <h1>Traducteur code EMS</h1>
-
-        <p>Le code EMS doit être entré dans l'ordre, avec des esapaces de séparation</p>
-        <p>
-            <strong>Note:</strong>
-            ce traducteur effectue une traduction mot à mot et n'effectue aucune vérification sur
-            la justesse du code (par exemple il traduira w 33 sans sourcillier).
-        </p>
-        <div id="EMSCodeTranslator">
-            <div v-if="colors_error" class="alert alert-warning" role="alert">
-                <strong>Couleur(s) inconnue(s)</strong>: {{color.colors_error.join(", ")}}
-            </div>
-            <div v-if="patterns_error" class="alert alert-warning" role="alert">
-                <strong>Modificateur(s) inconnu(s)</strong>:{{color.patterns_error.join(", ")}}
-            </div>
-            <table class="table">
-                <tr>
-                    <th>Code EMS:</th>
-                    <td><input v-model="ems_code">
-                        <!--button type="submit" class="btn btn-primary" v-on:click="do_translation">traduire</button-->
-                    </td>
-                </tr>
-                <tr>
-                    <th>Couleur:</th>
-                    <td>{{translated_color}}
-                    </td>
-                </tr>
-                <tr>
-                    <th>Genotype</th>
-                    <td>{{translated_genotype}}</td>
-                </tr>
-            </table>
-
-
-        </div>
-        <h1>Marrieur</h1>
+   
+        <h1>Composeur de mariages</h1>
 
         <p>
             En entrant les codes EMS du père et de la mère le système va essayer de vous

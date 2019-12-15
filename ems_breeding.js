@@ -139,7 +139,6 @@ class CatColor {
         if (fullcolor == "--") comments.push("chocolat/cinamon indéterminé");
         //comments.push("fullcolor: "+fullcolor);
 
-        //console.log(res);
         this.color = color;
         //this.color_ems = ems;
         this.text = this.sex + " " + this.color;
@@ -252,7 +251,6 @@ function combine_genes(gen_arr1, gen_arr2) {
 };
 
 function genotype2Str(genotype_arr) {
-    console.log(genotype_arr);
     return uniq(genotype_arr).sort((a, b) =>
         a.localeCompare(b, undefined, { sensitivity: 'base' })
     ).join(" ");
