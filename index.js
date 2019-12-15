@@ -125,10 +125,12 @@ var breeding = new Vue({
     father_genotype: function (new_genotype, old) {
       this.father_parsed_genotype = parse_genotype(new_genotype);
       this.father_parsed_genotype_error = (this.father_parsed_genotype.genes_error.length > 0);
+      this.do_breeding();
     },
     mother_genotype: function (new_genotype, old) {
       this.mother_parsed_genotype = parse_genotype(new_genotype);
       this.mother_parsed_genotype_error = (this.mother_parsed_genotype.genes_error.length > 0);
+      this.do_breeding();
     },
   }
 });
