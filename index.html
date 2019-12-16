@@ -14,7 +14,7 @@
 <body>
     <div class="container">
 
-   
+
         <h1>Composeur de mariages</h1>
 
         <p>
@@ -81,11 +81,28 @@
                     </td>
                 </tr>
             </table>
-
-            <h3>Les chatons pourraient être:</h3>
+            
+            <h3>Les chatons pourraient être: <button class="btn btn-outline-primary btn-sm  " type="button" data-toggle="collapse" data-target="#collapseExample"
+                aria-expanded="false" aria-controls="collapseExample">
+                statistiques
+            </button>
+            </h3>
+            <div v-if="kitten_colors.collection">
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <h4>Statistics</h4>
+                        <table class="table">
+                            <tr v-for="(count, key) in kitten_colors.collection.counters">
+                                <td>{{key}}</td>
+                                <td>{{(count/kitten_colors.collection.length * 100).toFixed(2)}} %</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
             <h4>Couleurs:</h4>
-            <table class="table" id="kitten-colors-list">
+            <table class="table table-striped" id="kitten-colors-list">
                 <tr>
                     <th>sex <a @click="sort('sex')"><i class="fa fa-arrows-v"></i></a></th>
                     <th>color <a @click="sort('color')"><i class="fa fa-arrows-v"></i></a></th>
@@ -96,20 +113,13 @@
                 <tr v-for="kit_color in sortedKitten">
                     <td>{{kit_color.sex}}</td>
                     <td>{{kit_color.color}}</td>
-                    <td><pre>{{kit_color.genotype}}</pre></td>
+                    <td>
+                        <pre>{{kit_color.genotype}}</pre>
+                    </td>
                     <td>{{kit_color.color_ems}}</td>
                     <td>{{kit_color.comments.join(", ")}}</td>
                 </tr>
             </table>
-            <div v-if="kitten_colors.collection">
-                <h4>Statistics</h4>
-                <table class="table">
-                    <tr v-for="(count, key) in kitten_colors.collection.counters">
-                        <td>{{key}}</td>
-                        <td>{{(count/kitten_colors.collection.length * 100).toFixed(2)}} %</td>
-                    </tr>
-                </table>
-            </div>
         </div>
     </div>
     <footer class="page-footer font-small blue pt-4">
@@ -136,7 +146,7 @@
 
                 <!-- Grid column -->
                 <div class="col-md-3 mb-md-0 mb-3">
-                    © 2019  <a href="mailto:mfutech@gmail.com">Marc Furrer</a>
+                    © 2019 <a href="mailto:mfutech@gmail.com">Marc Furrer</a>
                 </div>
     </footer>
     <!-- Footer -->
