@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="index.css">
-
+    <script src="utils.js"></script>
 </head>
 
 <body>
@@ -35,14 +35,8 @@
             <em>AUCUNE GARANTIE SUR LA QUALITE OU L'EXACTITUDE DU RESULTAT</em>
         </p>
         <div id="Breeding">
-            <div v-if="father_colors_error || mother_colors_error" class="alert alert-warning" role="alert">
-                <strong>Couleur(s) inconnue(s)</strong>:
-                {{[father_color.colors_error, mother_color.colors_error].flat().join(", ")}}
-            </div>
-            <div v-if="father_patterns_error || mother_colors_error" class="alert alert-warning" role="alert">
-                <strong>Modificateur(s) inconnu(s)</strong>:
-                {{[father_color.patterns_error, mother_color.patterns_error].flat().join(", ")}}
-            </div>
+
+
             <table class="table">
                 <tr>
                     <th></th>
@@ -53,7 +47,16 @@
                 </tr>
                 <tr>
                     <th>Pére:</th>
-                    <td><input v-model="father_ems"></td>
+                    <td><input v-model="father_ems">
+                        <div v-if="father_colors_error" class="alert alert-warning" role="alert">
+                            <strong>Couleur(s) inconnue(s)</strong>:
+                            {{father_color.colors_error.join(", ")}}
+                        </div>
+                        <div v-if="father_patterns_error" class="alert alert-warning" role="alert">
+                            <strong>Modificateur(s) inconnu(s)</strong>:
+                            {{father_color.patterns_error.join(", ")}}
+                        </div>
+                    </td>
                     <td>{{father_translated_color}}</td>
                     <td><input v-model="father_genotype"></td>
                     <td>
@@ -65,7 +68,16 @@
                 </tr>
                 <tr>
                     <th>Mère:</th>
-                    <td><input v-model="mother_ems"></td>
+                    <td><input v-model="mother_ems">
+                        <div v-if="mother_colors_error" class="alert alert-warning" role="alert">
+                            <strong>Couleur(s) inconnue(s)</strong>:
+                            {{mother_color.colors_error.join(", ")}}
+                        </div>
+                        <div v-if="mother_patterns_error" class="alert alert-warning" role="alert">
+                            <strong>Modificateur(s) inconnu(s)</strong>:
+                            {{mother_color.patterns_error.join(", ")}}
+                        </div>
+                    </td>
                     <td>{{mother_translated_color}}</td>
                     <td><input v-model="mother_genotype"></td>
                     <td>
@@ -81,11 +93,19 @@
                     </td>
                 </tr>
             </table>
-            
-            <h3>Les chatons pourraient être: <button class="btn btn-outline-primary btn-sm  " type="button" data-toggle="collapse" data-target="#collapseExample"
-                aria-expanded="false" aria-controls="collapseExample">
-                statistiques
-            </button>
+
+            <div v-if="(father_color.ems_no_genotype && father_color.ems_no_genotype.length > 0) || (mother_color.ems_no_genotype && mother_color.ems_no_genotype.length > 0)"
+                class="alert alert-warning" role="alert">
+                <strong>les genotype des code EMS suivant n'est pas prit en comtpe dans les couleurs des
+                    chatons</strong>:
+                {{ Array.from(new Set([father_color.ems_no_genotype, mother_color.ems_no_genotype].flat())).join(", ")}}
+            </div>
+
+            <h3>Les chatons pourraient être: <button class="btn btn-outline-primary btn-sm  " type="button"
+                    data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+                    aria-controls="collapseExample">
+                    statistiques
+                </button>
             </h3>
             <div v-if="kitten_colors.collection">
                 <div class="collapse" id="collapseExample">
@@ -165,7 +185,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!--script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script-->
-    <script src="utils.js"></script>
     <script src="ems_translator.js"></script>
     <script src="ems_genotype.js"></script>
     <script src="ems_breeding.js"></script>
