@@ -41,7 +41,7 @@ function basic_color(ems_color, sex) {
     };
 };
 
-function diluted_color(ems_color) {
+function diluted_genes(ems_color) {
     // ems color, as a string
     if (ems_color.match(/a|c|e|g|j|r/)) {
         return ["d", "d"]; // diluted
@@ -51,7 +51,7 @@ function diluted_color(ems_color) {
     };
 };
 
-function fullcolor_color(ems_color) {
+function fullcolor_genes(ems_color) {
     // ems color as a string
     if (ems_color.match(/b|c|h|j/)) {
         return ["b", "b/bl"];
@@ -64,7 +64,7 @@ function fullcolor_color(ems_color) {
     };
 };
 
-function silver_color(ems_color) {
+function silver_genes(ems_color) {
     if (ems_color.match(/s/)) {
         return ["I", "-"];
     }
@@ -108,9 +108,9 @@ function ems_genotype_obj(ems_code, sex) {
     let ems = ems_parse(ems_code);
     let genotype = {
         basic_color: basic_color(ems.color, sex),
-        diluted_color: diluted_color(ems.color),
-        fullcolor_color: fullcolor_color(ems.color),
-        silver_color: silver_color(ems.color),
+        diluted_color: diluted_genes(ems.color),
+        fullcolor_color: fullcolor_genes(ems.color),
+        silver_color: silver_genes(ems.color),
         modifier_aggouti: modifier_aggouti(ems.patterns),
         modifier_siamese: modifier_siamese(ems.patterns),
     };
