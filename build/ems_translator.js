@@ -48,6 +48,13 @@ color_names = {
     'u': 'sunshine',
   };
   
+  color_names_unknown_genotype = {
+    'w': 'blanc',
+    't': 'ambre',
+    'y': 'golden',
+    'u': 'sunshine',
+  };
+  
   // translation table patterns 
   pattern_names = {
     '11': 'shaded',
@@ -58,6 +65,24 @@ color_names = {
     '24': 'spotted tabby',
     '25': 'tic',
     '33': 'point',
+    '31': 'sepia',
+    '32': 'mink',
+    '01': '& blanc van',
+    '02': '& blanc arlequin',
+    '03': '& blanc (pour les bicolores)',
+    '04': 'mitted',
+    '09': '& blanc (sans indication de quantité de blanc)',
+    // and eyes colors
+    '61': 'yeux bleus',
+    '62': 'yeux or',
+    '63': 'yeux impairs',
+    '64': 'yeux verts',
+    '66': 'yeux aigue-marine',
+  }
+  pattern_names_unknown_genotype = {
+    '11': 'shaded',
+    '12': 'shell/chinchilla',
+    '25': 'tic',
     '31': 'sepia',
     '32': 'mink',
     '01': '& blanc van',
@@ -92,6 +117,7 @@ color_names = {
 
     ems = ems_parse(ems_code);
     let colors_error = [];
+    let ems_no_genotype = [];
   
     // translate letter into colornmaes
     colors = ems.color.split("").map(function (letter) {
@@ -99,6 +125,9 @@ color_names = {
       if (! c) {
         colors_error.push(letter);
       };
+      if (color_names_unknown_genotype[letter]){
+        ems_no_genotype.push(letter);
+      }
       return c;
     });
   
@@ -110,6 +139,9 @@ color_names = {
       if (!p){
         patterns_error.push(modifier);
       };
+      if (pattern_names_unknown_genotype[modifier]) {
+        ems_no_genotype.push(modifier);
+      }
       return p;
     });
   
@@ -119,7 +151,8 @@ color_names = {
       patterns: patterns,
       colors: colors,
       colors_error: colors_error,
-      patterns_error: patterns_error
+      patterns_error: patterns_error,
+      ems_no_genotype: ems_no_genotype,
     };
   }
   
