@@ -1,0 +1,39 @@
+{
+  "name": "kitten-color-calculator",
+  "version": "1.0.0",
+  "description": "Kitten Color Calculator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --progress --display-error-details",
+    "start": "webpack-dev-server --progress --colors --inline --content-base build",
+    "toto": "webpack --help"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mfutech/kitten-colors.git"
+  },
+  "author": "Marc Furrer <mfutech@gmail.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/mfutech/kitten-colors/issues"
+  },
+  "homepage": "https://github.com/mfutech/kitten-colors#readme",
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.0",
+    "css-loader": "^3.4.0",
+    "file-loader": "^5.0.2",
+    "postcss": "^7.0.25",
+    "style-loader": "^1.1.1",
+    "url-loader": "^3.0.0",
+    "webpack": "^4.41.4",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
+  },
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.16.0",
+    "vue": "^2.6.11"
+  }
+}

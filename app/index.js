@@ -14,37 +14,13 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 **/
-
-var app = new Vue({
-  el: '#EMSCodeTranslator',
-  data: {
-    color: {},
-    colors_error: false,
-    patterns_error: false,
-    unknown: "",
-    ems_code: 'n',
-    genotype: "",
-  },
-
-  methods: {
-    do_translation: function () {
-      this.color = ems_translate(this.ems_code);
-      this.genotype = ems_genotype(this.ems_code);
-    }
-  },
-  computed: {
-    translated_color: function () {
-      this.color = ems_translate(this.ems_code);
-      this.colors_error = this.color.colors_error.length > 0;
-      this.patterns_error = this.color.patterns_error.length > 0;
-      return this.color.full_color;
-    },
-    translated_genotype: function () {
-      this.genotype = ems_genotype(this.ems_code);
-      return this.genotype;
-    }
-  }
-});
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/solid'
+import '@fortawesome/fontawesome-free/js/regular'
+import '@fortawesome/fontawesome-free/js/brands'
+import 'bootstrap';
+require('bootstrap/dist/css/bootstrap.min.css');
+import Vue from 'vue';
 
 var breeding = new Vue({
   el: '#Breeding',
@@ -69,7 +45,9 @@ var breeding = new Vue({
   },
   methods: {
     do_breeding: function () {
-      this.kitten_colors = ems_breeding_genotype(this.father_parsed_genotype, this.mother_parsed_genotype)
+      if (this.father_parsed_genotype.basic_color != undefined && this.mother_parsed_genotype.basic_color != undefined) {
+        this.kitten_colors = ems_breeding_genotype(this.father_parsed_genotype, this.mother_parsed_genotype);
+      }
     },
     sort: function (s) {
       //if s == current sort, reverse
@@ -123,12 +101,18 @@ var breeding = new Vue({
   watch: {
     // whenever question changes, this function will run
     father_genotype: function (new_genotype, old) {
+      if (new_genotype == "") return;
       this.father_parsed_genotype = parse_genotype(new_genotype);
       this.father_parsed_genotype_error = (this.father_parsed_genotype.genes_error.length > 0);
+      if (this.father_genotype == "" || this.mother_genotype == "") return;
+      this.do_breeding();
     },
     mother_genotype: function (new_genotype, old) {
+      if (new_genotype == "") return;
       this.mother_parsed_genotype = parse_genotype(new_genotype);
       this.mother_parsed_genotype_error = (this.mother_parsed_genotype.genes_error.length > 0);
+      if (this.father_genotype == "" || this.mother_genotype == "") return;
+      this.do_breeding();
     },
   }
 });

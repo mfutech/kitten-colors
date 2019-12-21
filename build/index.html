@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--link rel="stylesheet" href="css/bootstrap.min.css"-->
+    <link rel="stylesheet" href="index.css">
+    <script src="utils.js"></script>
+</head>
+
+<body>
+    <div class="container">
+
+
+        <h1>Composeur de mariages</h1>
+        <p>
+            En entrant les codes EMS du père et de la mère le système va essayer de vous
+            donner les diffèrentes couleurs de chatons possibles.
+        </p>
+        <dl>
+
+            <dt>Note 1:</dt>
+            <dd>Le code EMS doit être entré dans l'ordre (lettres, ensuite chiffres), avec des
+                espaces de séparation.
+            </dd>
+            <dt>Note 2:</dt>
+            <dd>
+                ce traducteur effectue une traduction mot à mot et n'effectue aucune vérification sur
+                la justesse du code (par exemple il traduira w 33 sans sourcillier).
+            </dd>
+            <dt>Note 3:</dt>
+            <dd>
+                <em>AUCUNE GARANTIE SUR LA QUALITE OU L'EXACTITUDE DU RESULTAT</em>
+            </dd>
+        </dl>
+
+        <h2>Comment faire</h2>
+        <dl>
+            <dt>Etape 1:</dt>
+            <dd>
+                Entrer le <a href="http://www.loof.asso.fr/eleveurs/codes.php">
+                    code EMS</a> de la robe des deux parents.
+            </dd>
+            <dt>Etape 2:</dt>
+            <dd>
+                Corriger éventuellement le génotype, si vous savez qu'un des parents
+                est porteur d'un certain gène, ou homozygote d'un gène dominant.
+                Cela limite le nombre de possibilité de couleur pour les chatons.
+            </dd>
+            <dt>Etape 3:</dt>
+            <dd>
+                C'est fait. La liste de couleurs possibles est mise à jour
+                au fur et à mesure. Le boutons statistiques donne des détails 
+                sur la répartitions des différentes possibilités de couleur.
+            </dd>
+        </dl>
+        <div id="Breeding">
+            <table class="table">
+                <tr>
+                    <th></th>
+                    <th>Code EMS</th>
+                    <th>Couleur</th>
+                    <th>Genotype</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>Pére:</th>
+                    <td><input v-model="father_ems">
+                        <div v-if="father_colors_error" class="alert alert-warning" role="alert">
+                            <strong>Couleur(s) inconnue(s)</strong>:
+                            {{father_color.colors_error.join(", ")}}
+                        </div>
+                        <div v-if="father_patterns_error" class="alert alert-warning" role="alert">
+                            <strong>Modificateur(s) inconnu(s)</strong>:
+                            {{father_color.patterns_error.join(", ")}}
+                        </div>
+                    </td>
+                    <td>{{father_translated_color}}</td>
+                    <td><input v-model="father_genotype"></td>
+                    <td>
+                        <div v-if="father_parsed_genotype_error" class="alert alert-warning" role="alert">
+                            <strong>Erreur</strong>:
+                            {{father_parsed_genotype.genes_error.join(", ")}}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Mère:</th>
+                    <td><input v-model="mother_ems">
+                        <div v-if="mother_colors_error" class="alert alert-warning" role="alert">
+                            <strong>Couleur(s) inconnue(s)</strong>:
+                            {{mother_color.colors_error.join(", ")}}
+                        </div>
+                        <div v-if="mother_patterns_error" class="alert alert-warning" role="alert">
+                            <strong>Modificateur(s) inconnu(s)</strong>:
+                            {{mother_color.patterns_error.join(", ")}}
+                        </div>
+                    </td>
+                    <td>{{mother_translated_color}}</td>
+                    <td><input v-model="mother_genotype"></td>
+                    <td>
+                        <div v-if="mother_parsed_genotype_error" class="alert alert-warning" role="alert">
+                            <strong>Erreur</strong>:
+                            {{mother_parsed_genotype.genes_error.join(", ")}}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <button type="submit" class="btn btn-primary" v-on:click="do_breeding">Marrions les</button>
+                    </td>
+                </tr>
+            </table>
+
+            <div v-if="(father_color.ems_no_genotype && father_color.ems_no_genotype.length > 0) || (mother_color.ems_no_genotype && mother_color.ems_no_genotype.length > 0)"
+                class="alert alert-warning" role="alert">
+                <strong>les genotype des code EMS suivant n'est pas prit en comtpe dans les couleurs des
+                    chatons</strong>:
+                {{ Array.from(new Set([father_color.ems_no_genotype, mother_color.ems_no_genotype].flat())).join(", ")}}
+            </div>
+
+            <h3>Les chatons pourraient être: <button class="btn btn-outline-primary btn-sm  " type="button"
+                    data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+                    aria-controls="collapseExample">
+                    statistiques
+                </button>
+            </h3>
+            <div v-if="kitten_colors.collection">
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <h4>Statistics</h4>
+                        <table class="table">
+                            <tr v-for="(count, key) in kitten_colors.collection.counters">
+                                <td>{{key}}</td>
+                                <td>{{(count/kitten_colors.collection.length * 100).toFixed(2)}} %</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Couleurs:</h4>
+            <table class="table table-striped" id="kitten-colors-list">
+                <tr>
+                    <th>sex <a @click="sort('sex')"><i class="fas fa-arrows-alt-v"></i></a></th>
+                    <th>color <a @click="sort('color')"><i class="fas fa-arrows-alt-v"></i></a></th>
+                    <th>genotype <a @click="sort('genotype')"><i class="fas fa-arrows-alt-v"></i></a></th>
+                    <th>ems <a @click="sort('ems')"><i class="fas fa-arrows-alt-v"></i></a></th>
+                    <th>comments</th>
+                </tr>
+                <tr v-for="kit_color in sortedKitten">
+                    <td>{{kit_color.sex}}</td>
+                    <td>{{kit_color.color}}</td>
+                    <td>
+                        <pre>{{kit_color.genotype}}</pre>
+                    </td>
+                    <td>{{kit_color.color_ems}}</td>
+                    <td>{{kit_color.comments.join(", ")}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <footer class="page-footer font-small blue pt-4">
+
+        <!-- Footer Links -->
+        <div class="container-fluid text-center text-md-left">
+            <hr class="clearfix w-100 pb-3">
+
+            <!-- Grid row -->
+            <div class="row">
+                <!-- Grid column -->
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <!-- Content -->
+                    <p>source @ <a
+                            href="https://github.com/mfutech/kitten-colors">https://github.com/mfutech/kitten-colors</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+                <!-- Grid column -->
+                <div class="col-md-3 mb-md-0 mb-3">
+                    <a href="https://info.siberien.ch">info.siberien.ch</a>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-3 mb-md-0 mb-3">
+                    © 2019 <a href="mailto:mfutech@gmail.com">Marc Furrer</a>
+                </div>
+    </footer>
+    <!-- Footer -->
+
+
+    <!--script src="https://use.fontawesome.com/a3a579ef64.js"></script-->
+    <!--script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script-->
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script-->
+        
+        <!--script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script-->
+        <script src="ems_translator.js"></script>
+        <script src="ems_genotype.js"></script>
+        <script src="ems_breeding.js"></script>
+        <script src="bundle.js"></script>
+    <!--script src="index.js"></script-->
+
+
+</body>
+
+</html>

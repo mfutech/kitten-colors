@@ -2,3 +2,4 @@ _*
 *.tests.*
 .htaccess
 .user.ini
+node_modules
