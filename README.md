@@ -22,11 +22,14 @@ ne le faites pas et utiliser directement https://info.siberien.ch
 rien n'est prévu pour que se soit facile a ce stade tu projets, et ce ne sera probablmeent jamais le cas. 
 Mais si cela vous tente, voici comment:
 
-1. copier les fichier sur votre site, par exemple avec
+1. cloner et compiler les fichiers
 ```
-$ git clone https://github.com/mfutech/kitten-colors.git /mon-site/kitten-colors
+$ git clone https://github.com/mfutech/kitten-colors.git 
+$ cd kitten-colors
+$ npm install
+$ npm run build
 ```
-2. éditer index.html pour corriger les chemins de fichiers
+2. copier le contenu du dossier build sur votre site
 3. adapter les css a votre convenance.
 
 ## English
