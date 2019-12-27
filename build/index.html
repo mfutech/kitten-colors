@@ -108,9 +108,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4">
+                    <!--td colspan="4">
                         <button type="submit" class="btn btn-primary" v-on:click="do_breeding">Marrions les</button>
-                    </td>
+                    </!--td-->
                 </tr>
             </table>
 
@@ -122,26 +122,25 @@
             </div>
 
             <h3>Les chatons pourraient être: <button class="btn btn-outline-primary btn-sm  " type="button"
-                    data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
-                    aria-controls="collapseExample">
-                    statistiques
+                    data-toggle="collapse" data-target="#collapseDetails" aria-expanded="false"
+                    aria-controls="collapseDetails">
+                    détails
                 </button>
             </h3>
             <div v-if="kitten_colors.collection">
-                <div class="collapse" id="collapseExample">
-                    <div class="card card-body">
-                        <h4>Statistics</h4>
-                        <table class="table">
-                            <tr v-for="(count, key) in kitten_colors.collection.counters">
-                                <td>{{key}}</td>
-                                <td>{{(count/kitten_colors.collection.length * 100).toFixed(2)}} %</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
+                <h4>Répartition des couleurs</h4>
+                <table class="table">
+                    <tr v-for="(count, key) in kitten_colors.collection.counters">
+                        <td>{{key}}</td>
+                        <td>{{(count/kitten_colors.collection.length * 100).toFixed(2)}} %</td>
+                    </tr>
+                </table>
             </div>
-
-            <h4>Couleurs:</h4>
+    
+    
+            <div class="collapse" id="collapseDetails">
+                <div class="card card-body">
+            <h4>Toutes les possibilités:</h4>
             <table class="table table-striped" id="kitten-colors-list">
                 <tr>
                     <th>sex <a @click="sort('sex')"><i class="fas fa-arrows-alt-v"></i></a></th>
