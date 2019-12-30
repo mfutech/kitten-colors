@@ -50,5 +50,8 @@ module.exports = {
                 use: 'url-loader?limit=10000&mimetype=image/svg+xml'
             }
         ]
+    },
+    devServer : {
+        port: 8001
     }
 };
