@@ -14,6 +14,13 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 **/
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/solid'
+import '@fortawesome/fontawesome-free/js/regular'
+import '@fortawesome/fontawesome-free/js/brands'
+import 'bootstrap';
+require('bootstrap/dist/css/bootstrap.min.css');
+import Vue from 'vue';
 
 var breeding = new Vue({
   el: '#Breeding',

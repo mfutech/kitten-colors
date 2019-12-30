@@ -5,8 +5,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--link rel="stylesheet" href="css/bootstrap.min.css"-->
     <link rel="stylesheet" href="index.css">
     <script src="utils.js"></script>
 </head>
@@ -16,7 +15,6 @@
 
 
         <h1>Composeur de mariages</h1>
-
         <p>
             En entrant les codes EMS du père et de la mère le système va essayer de vous
             donner les diffèrentes couleurs de chatons possibles.
@@ -54,7 +52,7 @@
             <dt>Etape 3:</dt>
             <dd>
                 C'est fait. La liste de couleurs possibles est mise à jour
-                au fur et à mesure. Le boutons statistiques donne des détails 
+                au fur et à mesure. Le boutons statistiques donne des détails
                 sur la répartitions des différentes possibilités de couleur.
             </dd>
         </dl>
@@ -110,9 +108,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4">
+                    <!--td colspan="4">
                         <button type="submit" class="btn btn-primary" v-on:click="do_breeding">Marrions les</button>
-                    </td>
+                    </!--td-->
                 </tr>
             </table>
 
@@ -123,94 +121,90 @@
                 {{ Array.from(new Set([father_color.ems_no_genotype, mother_color.ems_no_genotype].flat())).join(", ")}}
             </div>
 
-            <h3>Les chatons pourraient être: <button class="btn btn-outline-primary btn-sm  " type="button"
-                    data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
-                    aria-controls="collapseExample">
-                    statistiques
-                </button>
+            <h3>Les chatons pourraient être:
             </h3>
             <div v-if="kitten_colors.collection">
-                <div class="collapse" id="collapseExample">
-                    <div class="card card-body">
-                        <h4>Statistics</h4>
-                        <table class="table">
-                            <tr v-for="(count, key) in kitten_colors.collection.counters">
-                                <td>{{key}}</td>
-                                <td>{{(count/kitten_colors.collection.length * 100).toFixed(2)}} %</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
+                <h4>Répartition des couleurs</h4>
+                <table class="table">
+                    <tr v-for="(count, key) in kitten_colors.collection.counters">
+                        <td>{{key}}</td>
+                        <td>{{(count/kitten_colors.collection.length * 100).toFixed(2)}} %</td>
+                    </tr>
+                </table>
             </div>
 
-            <h4>Couleurs:</h4>
-            <table class="table table-striped" id="kitten-colors-list">
-                <tr>
-                    <th>sex <a @click="sort('sex')"><i class="fa fa-arrows-v"></i></a></th>
-                    <th>color <a @click="sort('color')"><i class="fa fa-arrows-v"></i></a></th>
-                    <th>genotype <a @click="sort('genotype')"><i class="fa fa-arrows-v"></i></a></th>
-                    <th>ems <a @click="sort('ems')"><i class="fa fa-arrows-v"></i></a></th>
-                    <th>comments</th>
-                </tr>
-                <tr v-for="kit_color in sortedKitten">
-                    <td>{{kit_color.sex}}</td>
-                    <td>{{kit_color.color}}</td>
-                    <td>
-                        <pre>{{kit_color.genotype}}</pre>
-                    </td>
-                    <td>{{kit_color.color_ems}}</td>
-                    <td>{{kit_color.comments.join(", ")}}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <footer class="page-footer font-small blue pt-4">
-
-        <!-- Footer Links -->
-        <div class="container-fluid text-center text-md-left">
-            <hr class="clearfix w-100 pb-3">
-
-            <!-- Grid row -->
-            <div class="row">
-                <!-- Grid column -->
-                <div class="col-md-6 mt-md-0 mt-3">
-                    <!-- Content -->
-                    <p>source @ <a
-                            href="https://github.com/mfutech/kitten-colors">https://github.com/mfutech/kitten-colors</a>
-                    </p>
+            <button class="btn btn-outline-primary btn-sm  " type="button" data-toggle="collapse"
+                data-target="#collapseDetails" aria-expanded="false" aria-controls="collapseDetails">
+                détails
+            </button>
+            
+            <div class="collapse" id="collapseDetails">
+                <div class="card card-body">
+                    <h4>Toutes les possibilités:</h4>
+                    <table class="table table-striped" id="kitten-colors-list">
+                        <tr>
+                            <th>sex <a @click="sort('sex')"><i class="fas fa-arrows-alt-v"></i></a></th>
+                            <th>color <a @click="sort('color')"><i class="fas fa-arrows-alt-v"></i></a></th>
+                            <th>genotype <a @click="sort('genotype')"><i class="fas fa-arrows-alt-v"></i></a></th>
+                            <th>ems <a @click="sort('ems')"><i class="fas fa-arrows-alt-v"></i></a></th>
+                            <th>comments</th>
+                        </tr>
+                        <tr v-for="kit_color in sortedKitten">
+                            <td>{{kit_color.sex}}</td>
+                            <td>{{kit_color.color}}</td>
+                            <td>
+                                <pre>{{kit_color.genotype}}</pre>
+                            </td>
+                            <td>{{kit_color.color_ems}}</td>
+                            <td>{{kit_color.comments.join(", ")}}</td>
+                        </tr>
+                    </table>
                 </div>
-                <!-- Grid column -->
-                <!-- Grid column -->
-                <div class="col-md-3 mb-md-0 mb-3">
-                    <a href="https://info.siberien.ch">info.siberien.ch</a>
-                </div>
-                <!-- Grid column -->
+            </div>
+            <footer class="page-footer font-small blue pt-4">
 
-                <!-- Grid column -->
-                <div class="col-md-3 mb-md-0 mb-3">
-                    © 2019 <a href="mailto:mfutech@gmail.com">Marc Furrer</a>
-                </div>
-    </footer>
-    <!-- Footer -->
+                <!-- Footer Links -->
+                <div class="container-fluid text-center text-md-left">
+                    <hr class="clearfix w-100 pb-3">
+
+                    <!-- Grid row -->
+                    <div class="row">
+                        <!-- Grid column -->
+                        <div class="col-md-6 mt-md-0 mt-3">
+                            <!-- Content -->
+                            <p>source @ <a
+                                    href="https://github.com/mfutech/kitten-colors">https://github.com/mfutech/kitten-colors</a>
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+                        <!-- Grid column -->
+                        <div class="col-md-3 mb-md-0 mb-3">
+                            <a href="https://info.siberien.ch">info.siberien.ch</a>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-3 mb-md-0 mb-3">
+                            © 2019 <a href="mailto:mfutech@gmail.com">Marc Furrer</a>
+                        </div>
+            </footer>
+            <!-- Footer -->
 
 
-    <script src="https://use.fontawesome.com/a3a579ef64.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            <!--script src="https://use.fontawesome.com/a3a579ef64.js"></script-->
+            <!--script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        crossorigin="anonymous"></script-->
+            <!--script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script-->
 
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <!--script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script-->
-    <script src="ems_translator.js"></script>
-    <script src="ems_genotype.js"></script>
-    <script src="ems_breeding.js"></script>
-    <script src="index.js"></script>
+            <!--script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script-->
+            <script src="ems_translator.js"></script>
+            <script src="ems_genotype.js"></script>
+            <script src="ems_breeding.js"></script>
+            <script src="bundle.js"></script>
+            <!--script src="index.js"></script-->
 
 
 </body>
