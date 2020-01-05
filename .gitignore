@@ -4,3 +4,6 @@ _*
 .user.ini
 node_modules
 favicon.ico
+npm-debug.log
+.vscode/*
+build/bundle.js

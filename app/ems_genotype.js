@@ -26,6 +26,9 @@
 
 "use strict"
 
+import { ems_parse } from './ems_translator';
+export { ems_genotype, parse_genotype };
+
 function basic_color(ems_color, sex) {
     // ems color, as a string
     if (ems_color.match(/d|e/)) {

@@ -21,8 +21,8 @@
     
 */
 
-"use strict"
-
+export { CatColor, CatColorCollection, ems_breeding_genotype };
+import { uniq } from './utils';
 
 class CatColor {
 

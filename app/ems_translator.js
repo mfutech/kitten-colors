@@ -25,8 +25,11 @@
     Only relevant for cats, from common breeds.
 */
 
+//"use strict"
+export { ems_parse, ems_translate, color_names, color_names_unknown_genotype };
+
 // translation table for colors
-color_names = {
+let color_names = {
     'n': 'noir',
     'a': 'bleu',
     'f': 'black tortie',
@@ -48,7 +51,7 @@ color_names = {
     'u': 'sunshine',
   };
   
-  color_names_unknown_genotype = {
+  let color_names_unknown_genotype = {
     'w': 'blanc',
     't': 'ambre',
     'y': 'golden',
@@ -56,7 +59,7 @@ color_names = {
   };
   
   // translation table patterns 
-  pattern_names = {
+  let pattern_names = {
     '11': 'shaded',
     '12': 'shell/chinchilla',
     '21': 'tabby sans précision de motif',
@@ -78,8 +81,9 @@ color_names = {
     '63': 'yeux impairs',
     '64': 'yeux verts',
     '66': 'yeux aigue-marine',
-  }
-  pattern_names_unknown_genotype = {
+  };
+
+  let pattern_names_unknown_genotype = {
     '11': 'shaded',
     '12': 'shell/chinchilla',
     '25': 'tic',
@@ -96,16 +100,16 @@ color_names = {
     '63': 'yeux impairs',
     '64': 'yeux verts',
     '66': 'yeux aigue-marine',
-  }
+  };
   
   function ems_parse (ems_code) {
     // split code by space
-    code_list = ems_code.toLowerCase().split(/\s+/);
+    let code_list = ems_code.toLowerCase().split(/\s+/);
   
     // first element are letters giving the color name
-    color = code_list[0];
+    let color = code_list[0];
     // all other element are number describing patterns
-    pattern_list = code_list.slice(1).filter( e=> e.length>0 );
+    let pattern_list = code_list.slice(1).filter( e=> e.length>0 );
     
     return {
         "color": color,
@@ -115,13 +119,13 @@ color_names = {
 
   function ems_translate(ems_code) {
 
-    ems = ems_parse(ems_code);
+    let ems = ems_parse(ems_code);
     let colors_error = [];
     let ems_no_genotype = [];
   
     // translate letter into colornmaes
-    colors = ems.color.split("").map(function (letter) {
-      c = color_names[letter];
+    let colors = ems.color.split("").map(function (letter) {
+      let c = color_names[letter];
       if (! c) {
         colors_error.push(letter);
       };
@@ -134,8 +138,8 @@ color_names = {
     // translate numbers into patterns names
     let patterns_error = [];
 
-    patterns = ems.patterns.map(function (modifier) {
-      p = pattern_names[modifier];
+    let patterns = ems.patterns.map(function (modifier) {
+      let p = pattern_names[modifier];
       if (!p){
         patterns_error.push(modifier);
       };
