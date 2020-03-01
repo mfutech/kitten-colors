@@ -102,14 +102,6 @@ var breeding = new Vue({
         else 
           return "-";
       };
-
-    },
-    sort: function (s) {
-      //if s == current sort, reverse
-      if (s === this.currentSort) {
-        this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc';
-      }
-      this.currentSort = s;
     }
   },
   computed: {
@@ -139,7 +131,7 @@ var breeding = new Vue({
       if (this.sire_dilution_holder_flag)
         color.diluted_color[1] = 'd';
       this.sire_color_obj = color;
-      //this.do_breeding();
+
       return ems_genotype_obj_to_str(color);
     },
     dam_ems_color: function () {
@@ -168,24 +160,9 @@ var breeding = new Vue({
       if (this.dam_dilution_holder_flag)
         color.diluted_color[1] = 'd';
       this.dam_color_obj = color;
-      //this.do_breeding();
+
       return ems_genotype_obj_to_str(color);
     },
-
-    sortedKitten: function () {
-      if (this.kitten_colors.colors) { // object is initialized
-        return this.kitten_colors.colors.sort((a, b) => {
-          let modifier = 1;
-          if (this.currentSortDir === 'desc') modifier = -1;
-          if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
-          if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
-          return 0;
-        });
-      }
-      else {
-        return [];
-      }
-    }
   },
   watch: {
     // whenever question changes, this function will run
