@@ -64,6 +64,9 @@ var breeding = new Vue({
     currentSort: 'color',
     currentSortDir: 'asc'
   },
+  beforeMount: function () {
+    this.do_breeding();
+  },
   methods: {
     do_breeding: function () {
       if (this.sire_color_obj.basic_color != undefined && this.dam_color_obj.basic_color != undefined) {
