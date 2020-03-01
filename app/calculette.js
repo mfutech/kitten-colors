@@ -136,7 +136,7 @@ var breeding = new Vue({
       if (this.sire_dilution_holder_flag)
         color.diluted_color[1] = 'd';
       this.sire_color_obj = color;
-      this.do_breeding();
+      //this.do_breeding();
       return ems_genotype_obj_to_str(color);
     },
     dam_ems_color: function () {
@@ -165,7 +165,7 @@ var breeding = new Vue({
       if (this.dam_dilution_holder_flag)
         color.diluted_color[1] = 'd';
       this.dam_color_obj = color;
-      this.do_breeding();
+      //this.do_breeding();
       return ems_genotype_obj_to_str(color);
     },
 
@@ -186,11 +186,15 @@ var breeding = new Vue({
   },
   watch: {
     // whenever question changes, this function will run
-    'sire_ems_color_': function (newval, oldval) {
-      this.do_breeding();
+    'sire_ems_color': function (newval, oldval) {
+      if (newval != oldval) {
+        this.do_breeding();
+      };
     },
-    'dam_ems_color_': function (newval, oldvar) {
-      this.do_breeding();
+    'dam_ems_color': function (newval, oldval) {
+      if (newval != oldval) {
+        this.do_breeding();
+      };
     }
   }
 });
