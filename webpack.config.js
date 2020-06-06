@@ -7,7 +7,8 @@ module.exports = {
     mode: "development",
     entry: {
         bundle: PATHS.app + "/index.js",
-        calculette: PATHS.app + "/calculette.js"
+        calculette: PATHS.app + "/calculette.js",
+        tableau: PATHS.app + "/tableau.js"
     },
     output: {
         path: PATHS.build,

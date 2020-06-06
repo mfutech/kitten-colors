@@ -2,12 +2,12 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="calculette.css">
+    <link rel="stylesheet" href="tableau.css">
 
 </head>
 
 <body>
-    <h2 class=""><span class="titre">Choissisez vos deux parents birmans...</span></h2><br>
+    <h2 class=""><span class="titre">Choissisez vos deux parents parents...</span></h2><br>
     <div id="Breeding">
         <div class="table-responsive">
 
@@ -26,7 +26,7 @@
                         </td>
                         <td>
                             <select size="1" v-model="sire_color">
-                                <option value="n">Seal (n)</option>
+                                <option value="n">Black / Seal (n)</option>
                                 <option value="a">Blue (a)</option>
                                 <option value="b">Chocolate (b)</option>
                                 <option value="c">Lilac (c)</option>
@@ -39,6 +39,7 @@
                         <td>
                             <input type="checkbox" v-model="sire_aggouti_flag"> Tabby
                             (A)<br>
+                            <input type="checkbox" v-model="sire_point_flag">Point (cscs)<br>
                             <input type="checkbox" v-model="sire_silver_flag">
                             Silver/Smoke (I)
                         </td>
@@ -47,7 +48,9 @@
                         <td align="left">
                             <input type="checkbox" v-model="sire_choco_holder_flag"> Chocolate (b)<br>
                             <input type="checkbox" v-model="sire_cinnamon_holder_flag"> Cinnamon (bl)<br>
-                            <input type="checkbox" v-model="sire_dilution_holder_flag"> Dilution (d)
+                            <input type="checkbox" v-model="sire_dilution_holder_flag"> Dilution (d)<br>
+                            <input type="checkbox" v-model="sire_point_holder_flag"> Point (cs)<br>
+
                         </td>
                         <td align="left">
                             <input type="checkbox" v-model="sire_hz_aggouti_flag"> Tabby (AA)<br>
@@ -63,8 +66,8 @@
                         </td>
                         <td>
                             <select size="1" v-model="dam_color">
-                                <option value="n">Seal (n)</option>
-                                <option value="f">Seal Tortite (f)</option>
+                                <option value="n">Black / Seal (n)</option>
+                                <option value="f">Black / Seal Tortite (f)</option>
                                 <option value="a">Blue (a)</option>
                                 <option value="g">Blue Tortie(g)</option>
                                 <option value="b">Chocolate (b)</option>
@@ -81,16 +84,19 @@
                         </td>
                         <td>
                             <input type="checkbox" v-model="dam_aggouti_flag"> Tabby (A)<br>
+                            <input type="checkbox" v-model="dam_point_flag">Point (cscs)<br>
                             <input type="checkbox" v-model="dam_silver_flag"> Silver/Smoke (I)
                         </td>
                         <td align="left">
                             <input type="checkbox" v-model="dam_choco_holder_flag"> Chocolate (b)<br>
                             <input type="checkbox" v-model="dam_cinnamon_holder_flag"> Cinnamon (bl)<br>
                             <input type="checkbox" v-model="dam_dilution_holder_flag"> Dilution (d)
+                            <input type="checkbox" v-model="dam_point_holder_flag"> Point (cs)<br>
                         </td>
                         <td align="left">
                             <input type="checkbox" v-model="dam_hz_aggouti_flag"> Tabby (AA)<br>
                             <input type="checkbox" v-model="dam_hz_silver_flag"> Silver/Smoke (II)<br>
+
                         </td>
                         <td><input type="text" v-model="dam_ems_color" readonly="true" size="16" value="...waiting...">
                         </td>
@@ -108,28 +114,71 @@
         <table id="calcul2" style="border:1px solid lightgray">
             <tbody>
                 <tr class="table">
-                    <td style="text-align: center;"> <!--button @click="do_breeding()" class="btn btn-primary">mise à jour</button--></td>
-                    <th colspan="4" style="color:white; text-align: center;" bgcolor="#3c85ce">MÂLE</th>
-                    <th colspan="4" style="color:white; text-align: center;" bgcolor="#09529b">FEMELLE</th>
+                    <td style="text-align: center;">
+                        <!--button @click="do_breeding()" class="btn btn-primary">mise à jour</button-->
+                    </td>
+                    <th colspan="8" style="color:white; background-color: #85C1E9;    text-align: center;">MÂLE</th>
+                    <th colspan="8" style="color:grey;  background-color: #D6EAF8;    text-align: center;   ">FEMELLE
+                    </th>
+                </tr>
+                <tr class="table">
+                    <td style="text-align: center;"> </td>
+                    <th colspan="4" style="color: white; text-align: center; background-color:#3c85ce"></th>
+                    <th colspan="4" style="color: white; text-align: center; background-color:#09529b">POINT</th>
+                    <th colspan="4" style="color: white; text-align: center; background-color:#3c85ce"></th>
+                    <th colspan="4" style="color: white; text-align: center; background-color:#09529b">POINT</th>
                 </tr>
                 <tr class="table">
                     <td><strong>COULEUR</strong></td>
-                    <td style="color:white; background-color: #3c85ce;    text-align: center; width: 5em;"><strong>SOLID</strong></td>
-                    <td style="color:white; background-color: #85C1E9;    text-align: center; width: 5em;"><strong>TABBY</strong></td>
-                    <td style="color:grey;  background-color: #D6EAF8;    text-align: center; width: 5em;"><strong>SMOKE</strong></td>
-                    <td style="color:grey;  background-color: whitesmoke; text-align: center; width: 5em;"><strong>SILVER</strong></td>
-                    <td style="color:white; background-color: #09529b;    text-align: center; width: 5em;"><strong>SOLID</strong></td>
-                    <td style="color:white; background-color: #85C1E9;    text-align: center; width: 5em;"><strong>TABBY</strong></td>
-                    <td style="color:grey;  background-color: #D6EAF8;    text-align: center; width: 5em;"><strong>SMOKE</strong></td>
-                    <td style="color:grey;  background-color: whitesmoke; text-align: center; width: 5em;"><strong>SILVER</strong></td>
+                    <td style="color:white; background-color: #3c85ce;    text-align: center; width: 5em;">
+                        <strong>SOLID</strong></td>
+                    <td style="color:white; background-color: #85C1E9;    text-align: center; width: 5em;">
+                        <strong>TABBY</strong></td>
+                    <td style="color:grey;  background-color: #D6EAF8;    text-align: center; width: 5em;">
+                        <strong>SMOKE</strong></td>
+                    <td style="color:grey;  background-color: whitesmoke; text-align: center; width: 5em;">
+                        <strong>SILVER</strong></td>
+                    <td style="color:white; background-color: #09529b;    text-align: center; width: 5em;">
+                        <strong>SOLID</strong></td>
+                    <td style="color:white; background-color: #85C1E9;    text-align: center; width: 5em;">
+                        <strong>TABBY</strong></td>
+                    <td style="color:grey;  background-color: #D6EAF8;    text-align: center; width: 5em;">
+                        <strong>SMOKE</strong></td>
+                    <td style="color:grey;  background-color: whitesmoke; text-align: center; width: 5em;">
+                        <strong>SILVER</strong></td>
+                    <td style="color:white; background-color: #3c85ce;    text-align: center; width: 5em;">
+                        <strong>SOLID</strong></td>
+                    <td style="color:white; background-color: #85C1E9;    text-align: center; width: 5em;">
+                        <strong>TABBY</strong></td>
+                    <td style="color:grey;  background-color: #D6EAF8;    text-align: center; width: 5em;">
+                        <strong>SMOKE</strong></td>
+                    <td style="color:grey;  background-color: whitesmoke; text-align: center; width: 5em;">
+                        <strong>SILVER</strong></td>
+                    <td style="color:white; background-color: #09529b;    text-align: center; width: 5em;">
+                        <strong>SOLID</strong></td>
+                    <td style="color:white; background-color: #85C1E9;    text-align: center; width: 5em;">
+                        <strong>TABBY</strong></td>
+                    <td style="color:grey;  background-color: #D6EAF8;    text-align: center; width: 5em;">
+                        <strong>SMOKE</strong></td>
+                    <td style="color:grey;  background-color: whitesmoke; text-align: center; width: 5em;">
+                        <strong>SILVER</strong></td>
                 </tr>
 
                 <tr class="table ligne_1pair">
-                    <td>Seal Point</td>
+                    <td>Seal</td>
+                    <td>{{pcent_color('n',        'male')   | formatPercent}}</td>
+                    <td>{{pcent_color('n 21',     'male')   | formatPercent}}</td>
+                    <td>{{pcent_color('ns',       'male')   | formatPercent}}</td>
+                    <td>{{pcent_color('ns 21',    'male')   | formatPercent}}</td>
                     <td>{{pcent_color('n 33',     'male')   | formatPercent}}</td>
                     <td>{{pcent_color('n 21 33',  'male')   | formatPercent}}</td>
                     <td>{{pcent_color('ns 33',    'male')   | formatPercent}}</td>
                     <td>{{pcent_color('ns 21 33', 'male')   | formatPercent}}</td>
+
+                    <td>{{pcent_color('n',        'female') | formatPercent}}</td>
+                    <td>{{pcent_color('n 21',     'female') | formatPercent}}</td>
+                    <td>{{pcent_color('ns',       'female') | formatPercent}}</td>
+                    <td>{{pcent_color('ns 21',    'female') | formatPercent}}</td>
                     <td>{{pcent_color('n 33',     'female') | formatPercent}}</td>
                     <td>{{pcent_color('n 21 33',  'female') | formatPercent}}</td>
                     <td>{{pcent_color('ns 33',    'female') | formatPercent}}</td>
@@ -142,6 +191,7 @@
                     <td>{{pcent_color('a 21 33',  'male')   | formatPercent}}</td>
                     <td>{{pcent_color('as 33',    'male')   | formatPercent}}</td>
                     <td>{{pcent_color('as 21 33', 'male')   | formatPercent}}</td>
+
                     <td>{{pcent_color('a 33',     'female') | formatPercent}}</td>
                     <td>{{pcent_color('a 21 33',  'female') | formatPercent}}</td>
                     <td>{{pcent_color('as 33',    'female') | formatPercent}}</td>
@@ -308,7 +358,7 @@
         </div>
         <hr-->
     </div>
-    <script src='calculette.js'></script>
+    <script src='tableau.js'></script>
 </body>
 
 </html>
