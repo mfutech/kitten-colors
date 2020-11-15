@@ -48,6 +48,8 @@ var breeding = new Vue({
     sire_hz_silver_flag: false,
     sire_siamese_flag: true,
     sire_color_obj: {},
+    sire_point_flag: false,
+    sire_point_holder_flag: false,
     dam_color: "n",
     dam_silver_flag: false,
     dam_aggouti_flag: false,
@@ -58,6 +60,8 @@ var breeding = new Vue({
     dam_hz_silver_flag: false,
     dam_siamese_flag: true,
     dam_color_obj: {},
+    dam_point_flag: false,
+    dam_point_holder_flag: false,
     kitten_colors: [],
     kitten_female_color_count: {},
     kitten_male_color_count: {},
@@ -107,7 +111,6 @@ var breeding = new Vue({
   computed: {
     sire_ems_color: function () {
       let color = ems_genotype_obj(this.sire_color, 'male');
-      color.modifier_siamese = ['cs', 'cs'];
       if (this.sire_aggouti_flag) {
         if (this.sire_hz_aggouti_flag)
           color.modifier_aggouti = ['A', 'A'];
@@ -130,6 +133,18 @@ var breeding = new Vue({
         color.fullcolor_color[1] = 'bl';
       if (this.sire_dilution_holder_flag)
         color.diluted_color[1] = 'd';
+
+        // check point - siamese genes
+      if (this.sire_point_flag)
+        color.modifier_siamese = ['cs', 'cs'];
+      else {
+        if (this.sire_point_holder_flag)
+          color.modifier_siamese = ['Cs', 'cs'];
+        else
+          color.modifier_siamese = ['Cs', '-'];
+      };
+
+      // create color object
       this.sire_color_obj = color;
 
       return ems_genotype_obj_to_str(color);
@@ -159,6 +174,18 @@ var breeding = new Vue({
         color.fullcolor_color[1] = 'bl';
       if (this.dam_dilution_holder_flag)
         color.diluted_color[1] = 'd';
+
+        // check point - siamese genes
+      if (this.dam_point_flag)
+        color.modifier_siamese = ['cs', 'cs'];
+      else {
+        if (this.dam_point_holder_flag)
+          color.modifier_siamese = ['Cs', 'cs'];
+        else
+          color.modifier_siamese = ['Cs', '-'];
+      };
+
+      // create color object
       this.dam_color_obj = color;
 
       return ems_genotype_obj_to_str(color);
