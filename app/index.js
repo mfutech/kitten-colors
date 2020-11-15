@@ -22,6 +22,10 @@ import 'bootstrap';
 require('bootstrap/dist/css/bootstrap.min.css');
 import Vue from 'vue';
 
+import { ems_translate } from './ems_translator.js';
+import { ems_genotype, parse_genotype } from './ems_genotype.js';
+import { ems_breeding_genotype } from './ems_breeding';
+
 var breeding = new Vue({
   el: '#Breeding',
   data: {

@@ -6,11 +6,13 @@ const PATHS = {
 module.exports = {
     mode: "development",
     entry: {
-        app: PATHS.app + "/index.js"
+        bundle: PATHS.app + "/index.js",
+        calculette: PATHS.app + "/calculette.js",
+        tableau: PATHS.app + "/tableau.js"
     },
     output: {
         path: PATHS.build,
-        filename: 'bundle.js'
+        filename: '[name].js'
     },
     resolve: {
         alias: {

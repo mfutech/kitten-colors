@@ -26,6 +26,9 @@
 
 "use strict"
 
+import { ems_parse } from './ems_translator';
+export { ems_genotype, parse_genotype, ems_genotype_obj, ems_genotype_obj_to_str };
+
 function basic_color(ems_color, sex) {
     // ems color, as a string
     if (ems_color.match(/d|e/)) {
@@ -117,10 +120,7 @@ function ems_genotype_obj(ems_code, sex) {
     return genotype;
 };
 
-function ems_genotype(ems_code, sex = 'male') {
-    if (ems_code == "") return "";
-    let genotype = ems_genotype_obj(ems_code, sex);
-
+function ems_genotype_obj_to_str(ems_code_obj) {
     let props = [
         'basic_color',
         'diluted_color',
@@ -131,8 +131,15 @@ function ems_genotype(ems_code, sex = 'male') {
     ];
 
     return props.map(function (p) {
-        return genotype[p].join("")
+        return ems_code_obj[p].join("")
     }).sort((a, b) => a.localeCompare(b, undefined, {sensitivity: 'base'})).join(" ");
+
+}
+
+function ems_genotype(ems_code, sex = 'male') {
+    if (ems_code == "") return "";
+    let genotype = ems_genotype_obj(ems_code, sex);
+    return ems_genotype_obj_to_str(genotype);
 };
 
 function update_error(error, genes_ar, max_length){

@@ -24,7 +24,9 @@
     many
 */
 
-"use strict"
+"use strict";
+
+export  {uniq} ;
 
 function uniq (arr) {
     return Array.from(
