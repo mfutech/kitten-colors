@@ -20,19 +20,19 @@
   },
   "homepage": "https://github.com/mfutech/kitten-colors#readme",
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.12.0",
-    "css-loader": "^3.4.0",
+    "@fortawesome/fontawesome-free": "^5.13.0",
+    "css-loader": "^3.5.3",
     "file-loader": "^5.0.2",
-    "postcss": "^7.0.25",
-    "style-loader": "^1.1.1",
+    "postcss": "^7.0.32",
+    "style-loader": "^1.2.1",
     "url-loader": "^3.0.0",
-    "webpack": "^4.41.4",
+    "webpack": "^4.43.0",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.10.1"
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "bootstrap": "^4.4.1",
-    "jquery": "^3.4.1",
+    "bootstrap": "^4.5.0",
+    "jquery": "^3.5.1",
     "popper.js": "^1.16.0",
     "vue": "^2.6.11"
   }
