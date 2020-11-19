@@ -21,6 +21,7 @@ import '@fortawesome/fontawesome-free/js/brands'
 import 'bootstrap';
 require('bootstrap/dist/css/bootstrap.min.css');
 import Vue from 'vue';
+import VueRouter from 'vue-router';
 
 import { ems_translate } from './ems_translator.js';
 import { ems_genotype, parse_genotype, ems_genotype_obj, ems_genotype_obj_to_str } from './ems_genotype.js';
@@ -34,8 +35,15 @@ Vue.filter("formatPercent", function (number) {
     maximumFractionDigits: 2 }).format(number);
 });
 
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+  mode: 'hash',
+  
+});
 
 var breeding = new Vue({
+  router,
   el: '#Breeding',
   data: {
     sire_color: "n",
@@ -69,6 +77,7 @@ var breeding = new Vue({
     currentSortDir: 'asc'
   },
   beforeMount: function () {
+
     this.do_breeding();
   },
   methods: {
@@ -111,6 +120,7 @@ var breeding = new Vue({
   computed: {
     sire_ems_color: function () {
       let color = ems_genotype_obj(this.sire_color, 'male');
+
       if (this.sire_aggouti_flag) {
         if (this.sire_hz_aggouti_flag)
           color.modifier_aggouti = ['A', 'A'];
@@ -147,11 +157,15 @@ var breeding = new Vue({
       // create color object
       this.sire_color_obj = color;
 
+      console.log('salut');
+      console.log(this.$route);
+      console.log('----------');
+
       return ems_genotype_obj_to_str(color);
     },
     dam_ems_color: function () {
       let color = ems_genotype_obj(this.dam_color, 'female');
-      color.modifier_siamese = ['cs', 'cs'];
+
       if (this.dam_aggouti_flag) {
         if (this.dam_hz_aggouti_flag)
           color.modifier_aggouti = ['A', 'A'];

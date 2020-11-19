@@ -5,6 +5,8 @@ const PATHS = {
 };
 module.exports = {
     mode: "development",
+    cache: true,
+    devtool: 'source-map',
     entry: {
         bundle: PATHS.app + "/index.js",
         calculette: PATHS.app + "/calculette.js",

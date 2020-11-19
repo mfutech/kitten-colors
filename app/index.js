@@ -21,12 +21,21 @@ import '@fortawesome/fontawesome-free/js/brands'
 import 'bootstrap';
 require('bootstrap/dist/css/bootstrap.min.css');
 import Vue from 'vue';
+import VueRouter from 'vue-router';
 
-import { ems_translate } from './ems_translator.js';
-import { ems_genotype, parse_genotype } from './ems_genotype.js';
+import { ems_translate  } from './ems_translator.js';
+import { ems_genotype, parse_genotype, catcol_from_genotype_str } from './ems_genotype.js';
 import { ems_breeding_genotype } from './ems_breeding';
 
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+  mode: 'hash',
+
+});
+
 var breeding = new Vue({
+  router,
   el: '#Breeding',
   data: {
     father_ems: "n",
@@ -76,16 +85,19 @@ var breeding = new Vue({
       this.mother_genotype = ems_genotype(this.mother_ems, 'female');
       return this.mother_color.full_color;
     },
-    father_translated_genotype: function () {
-      this.father_genotype = ems_genotype(this.father_ems, 'male');
-      return this.father_genotype;
-    },
-    mother_translated_genotype: function () {
-      this.mother_genotype = ems_genotype(this.mother_ems);
-      return this.mother_genotype;
-    },
-    father_recomputed_genotype: function () {
-      return parse_genotype(this.father_genotype);
+    // father_translated_genotype: function () {
+    //   this.father_genotype = ems_genotype(this.father_ems, 'male');
+    //   return this.father_genotype;
+    // },
+    // mother_translated_genotype: function () {
+    //   this.mother_genotype = ems_genotype(this.mother_ems);
+    //   return this.mother_genotype;
+    // },
+    // father_recomputed_genotype: function () {
+    //   return parse_genotype(this.father_genotype);
+    // },
+    permalink_query: function() {
+      return { sire: this.father_genotype, dam: this.mother_genotype };
     },
     sortedKitten: function () {
       if (this.kitten_colors.colors) { // object is initialized
@@ -118,6 +130,22 @@ var breeding = new Vue({
       if (this.father_genotype == "" || this.mother_genotype == "") return;
       this.do_breeding();
     },
+  },
+
+  // when mounting, analyse query parameters
+  beforeMount: function () {
+    console.log("sire:" + this.$route.query.sire);
+    if (this.$route.query.sire) {
+      this.father_color = catcol_from_genotype_str(this.$route.query.sire);
+      this.father_ems = this.father_color.color_ems;
+      console.log(this.father_color)
+    };
+    console.log("dam:" + this.$route.query.dam);
+    if (this.$route.query.dam) {
+      this.mother_color = catcol_from_genotype_str(this.$route.query.dam);
+      this.mother_ems = this.mother_color.color_ems;
+      console.log(this.mother_color)
+    };
   }
 });
 

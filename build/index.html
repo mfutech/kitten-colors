@@ -113,6 +113,8 @@
                 </tr>
             </table>
 
+            <router-link :to='{  query: permalink_query}'>(permalink)</router-link>
+
             <div v-if="(father_color.ems_no_genotype && father_color.ems_no_genotype.length > 0) || (mother_color.ems_no_genotype && mother_color.ems_no_genotype.length > 0)"
                 class="alert alert-warning" role="alert">
                 <strong>les genotype des code EMS suivant n'est pas prit en comtpe dans les couleurs des
@@ -188,7 +190,8 @@
                         </div>
             </footer>
             <!-- Footer -->
-            <script src="bundle.js"></script>
+
+            <script src="./bundle.js"></script>
 
  </body>
 
