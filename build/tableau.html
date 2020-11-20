@@ -26,7 +26,7 @@
                             <strong>MÂLE</strong>
                         </td>
                         <td>
-                            <select size="1" v-model="sire_color">
+                            <select size="1" v-model="sire.color">
                                 <option value="n">Black / Seal (n)</option>
                                 <option value="a">Blue (a)</option>
                                 <option value="b">Chocolate (b)</option>
@@ -38,24 +38,24 @@
                             </select>
                         </td>
                         <td>
-                            <input type="checkbox" v-model="sire_aggouti_flag"> Tabby
+                            <input type="checkbox" v-model="sire.aggouti_flag"> Tabby
                             (A)<br>
-                            <input type="checkbox" v-model="sire_point_flag"> Point (cscs)<br>
-                            <input type="checkbox" v-model="sire_silver_flag">
+                            <input type="checkbox" v-model="sire.point_flag"> Point (cscs)<br>
+                            <input type="checkbox" v-model="sire.silver_flag">
                             Silver/Smoke (I)
                         </td>
 
 
                         <td>
-                            <input type="checkbox" v-model="sire_choco_holder_flag"> Chocolate (b)<br>
-                            <input type="checkbox" v-model="sire_cinnamon_holder_flag"> Cinnamon (bl)<br>
-                            <input type="checkbox" v-model="sire_dilution_holder_flag"> Dilution (d)<br>
-                            <input type="checkbox" v-model="sire_point_holder_flag"> Point (cs)<br>
+                            <input type="checkbox" v-model="sire.choco_holder_flag"> Chocolate (b)<br>
+                            <input type="checkbox" v-model="sire.cinnamon_holder_flag"> Cinnamon (bl)<br>
+                            <input type="checkbox" v-model="sire.dilution_holder_flag"> Dilution (d)<br>
+                            <input type="checkbox" v-model="sire.point_holder_flag"> Point (cs)<br>
 
                         </td>
                         <td>
-                            <input type="checkbox" v-model="sire_hz_aggouti_flag"> Tabby (AA)<br>
-                            <input type="checkbox" v-model="sire_hz_silver_flag"> Silver/Smoke (II)<br>
+                            <input type="checkbox" v-model="sire.hz_aggouti_flag"> Tabby (AA)<br>
+                            <input type="checkbox" v-model="sire.hz_silver_flag"> Silver/Smoke (II)<br>
                         </td>
                         <td>
                             <input type="text" v-model="sire_ems_color" readonly="true" size="16" value="...waiting...">
@@ -66,7 +66,7 @@
                             <strong>FEMELLE</strong>
                         </td>
                         <td>
-                            <select size="1" v-model="dam_color">
+                            <select size="1" v-model="dam.color">
                                 <option value="n">Black / Seal (n)</option>
                                 <option value="f">Black / Seal Tortite (f)</option>
                                 <option value="a">Blue (a)</option>
@@ -84,19 +84,19 @@
                             </select>
                         </td>
                         <td>
-                            <input type="checkbox" v-model="dam_aggouti_flag"> Tabby (A)<br>
-                            <input type="checkbox" v-model="dam_point_flag"> Point (cscs)<br>
-                            <input type="checkbox" v-model="dam_silver_flag"> Silver/Smoke (I)
+                            <input type="checkbox" v-model="dam.aggouti_flag"> Tabby (A)<br>
+                            <input type="checkbox" v-model="dam.point_flag"> Point (cscs)<br>
+                            <input type="checkbox" v-model="dam.silver_flag"> Silver/Smoke (I)
                         </td>
                         <td>
-                            <input type="checkbox" v-model="dam_choco_holder_flag"> Chocolate (b)<br>
-                            <input type="checkbox" v-model="dam_cinnamon_holder_flag"> Cinnamon (bl)<br>
-                            <input type="checkbox" v-model="dam_dilution_holder_flag"> Dilution (d)<br>
-                            <input type="checkbox" v-model="dam_point_holder_flag"> Point (cs)
+                            <input type="checkbox" v-model="dam.choco_holder_flag"> Chocolate (b)<br>
+                            <input type="checkbox" v-model="dam.cinnamon_holder_flag"> Cinnamon (bl)<br>
+                            <input type="checkbox" v-model="dam.dilution_holder_flag"> Dilution (d)<br>
+                            <input type="checkbox" v-model="dam.point_holder_flag"> Point (cs)
                         </td>
                         <td>
-                            <input type="checkbox" v-model="dam_hz_aggouti_flag"> Tabby (AA)<br>
-                            <input type="checkbox" v-model="dam_hz_silver_flag"> Silver/Smoke (II)<br>
+                            <input type="checkbox" v-model="dam.hz_aggouti_flag"> Tabby (AA)<br>
+                            <input type="checkbox" v-model="dam.hz_silver_flag"> Silver/Smoke (II)<br>
 
                         </td>
                         <td><input type="text" v-model="dam_ems_color" readonly="true" size="16" value="...waiting...">
@@ -106,6 +106,8 @@
                 </tbody>
             </table>
         <!--/div-->
+        <router-link :to='{  query: permalink_query}'>(permalink)</router-link>
+
         <br><br>
         <h2 class="">
             <span class="sous-titre">... Possibilités de couleurs des chatons issus de ce

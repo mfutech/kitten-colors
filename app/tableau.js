@@ -46,30 +46,34 @@ var breeding = new Vue({
   router,
   el: '#Breeding',
   data: {
-    sire_color: "n",
-    sire_silver_flag: false,
-    sire_aggouti_flag: false,
-    sire_choco_holder_flag: false,
-    sire_cinnamon_holder_flag: false,
-    sire_dilution_holder_flag: false,
-    sire_hz_aggouti_flag: false,
-    sire_hz_silver_flag: false,
-    sire_siamese_flag: true,
-    sire_color_obj: {},
-    sire_point_flag: false,
-    sire_point_holder_flag: false,
-    dam_color: "n",
-    dam_silver_flag: false,
-    dam_aggouti_flag: false,
-    dam_choco_holder_flag: false,
-    dam_cinnamon_holder_flag: false,
-    dam_dilution_holder_flag: false,
-    dam_hz_aggouti_flag: false,
-    dam_hz_silver_flag: false,
-    dam_siamese_flag: true,
-    dam_color_obj: {},
-    dam_point_flag: false,
-    dam_point_holder_flag: false,
+    sire: {
+      color: "n",
+      silver_flag: false,
+      aggouti_flag: false,
+      choco_holder_flag: false,
+      cinnamon_holder_flag: false,
+      dilution_holder_flag: false,
+      hz_aggouti_flag: false,
+      hz_silver_flag: false,
+      siamese_flag: true,
+      color_obj: {},
+      point_flag: false,
+      point_holder_flag: false
+    },
+    dam: {
+      color: "n",
+      silver_flag: false,
+      aggouti_flag: false,
+      choco_holder_flag: false,
+      cinnamon_holder_flag: false,
+      dilution_holder_flag: false,
+      hz_aggouti_flag: false,
+      hz_silver_flag: false,
+      siamese_flag: true,
+      color_obj: {},
+      point_flag: false,
+      point_holder_flag: false
+    },
     kitten_colors: [],
     kitten_female_color_count: {},
     kitten_male_color_count: {},
@@ -82,8 +86,8 @@ var breeding = new Vue({
   },
   methods: {
     do_breeding: function () {
-      if (this.sire_color_obj.basic_color != undefined && this.dam_color_obj.basic_color != undefined) {
-        this.kitten_colors = ems_breeding_genotype(this.sire_color_obj, this.dam_color_obj);
+      if (this.sire.color_obj.basic_color != undefined && this.dam.color_obj.basic_color != undefined) {
+        this.kitten_colors = ems_breeding_genotype(this.sire.color_obj, this.dam.color_obj);
         let kitten_male_color_count = [];
         let kitten_female_color_count = []
         this.kitten_colors.colors.forEach(color => {
@@ -119,43 +123,43 @@ var breeding = new Vue({
   },
   computed: {
     sire_ems_color: function () {
-      let color = ems_genotype_obj(this.sire_color, 'male');
+      let color = ems_genotype_obj(this.sire.color, 'male');
 
-      if (this.sire_aggouti_flag) {
-        if (this.sire_hz_aggouti_flag)
+      if (this.sire.aggouti_flag) {
+        if (this.sire.hz_aggouti_flag)
           color.modifier_aggouti = ['A', 'A'];
         else
           color.modifier_aggouti = ['A', '-'];
       } else {
         color.modifier_aggouti = ['a', 'a'];
       };
-      if (this.sire_silver_flag) {
-        if (this.sire_hz_silver_flag)
+      if (this.sire.silver_flag) {
+        if (this.sire.hz_silver_flag)
           color.silver_color = ['I', 'I'];
         else
           color.silver_color = ['I', '-'];
       } else {
         color.silver_color = ['i', 'i'];
       };
-      if (this.sire_choco_holder_flag)
+      if (this.sire.choco_holder_flag)
         color.fullcolor_color[1] = 'b';
-      if (this.sire_cinnamon_holder_flag)
+      if (this.sire.cinnamon_holder_flag)
         color.fullcolor_color[1] = 'bl';
-      if (this.sire_dilution_holder_flag)
+      if (this.sire.dilution_holder_flag)
         color.diluted_color[1] = 'd';
 
         // check point - siamese genes
-      if (this.sire_point_flag)
+      if (this.sire.point_flag)
         color.modifier_siamese = ['cs', 'cs'];
       else {
-        if (this.sire_point_holder_flag)
+        if (this.sire.point_holder_flag)
           color.modifier_siamese = ['Cs', 'cs'];
         else
           color.modifier_siamese = ['Cs', '-'];
       };
 
       // create color object
-      this.sire_color_obj = color;
+      this.sire.color_obj = color;
 
       console.log('salut');
       console.log(this.$route);
@@ -163,60 +167,80 @@ var breeding = new Vue({
 
       return ems_genotype_obj_to_str(color);
     },
-    dam_ems_color: function () {
-      let color = ems_genotype_obj(this.dam_color, 'female');
 
-      if (this.dam_aggouti_flag) {
-        if (this.dam_hz_aggouti_flag)
+    dam_ems_color: function () {
+      let color = ems_genotype_obj(this.dam.color, 'female');
+
+      if (this.dam.aggouti_flag) {
+        if (this.dam.hz_aggouti_flag)
           color.modifier_aggouti = ['A', 'A'];
         else
           color.modifier_aggouti = ['A', '-'];
       } else {
         color.modifier_aggouti = ['a', 'a'];
       };
-      if (this.dam_silver_flag) {
-        if (this.dam_hz_silver_flag)
+      if (this.dam.silver_flag) {
+        if (this.dam.hz_silver_flag)
           color.silver_color = ['I', 'I'];
         else
           color.silver_color = ['I', '-'];
       } else {
         color.silver_color = ['i', 'i'];
       };
-      if (this.dam_choco_holder_flag)
+      if (this.dam.choco_holder_flag)
         color.fullcolor_color[1] = 'b';
-      if (this.dam_cinnamon_holder_flag)
+      if (this.dam.cinnamon_holder_flag)
         color.fullcolor_color[1] = 'bl';
-      if (this.dam_dilution_holder_flag)
+      if (this.dam.dilution_holder_flag)
         color.diluted_color[1] = 'd';
 
         // check point - siamese genes
-      if (this.dam_point_flag)
+      if (this.dam.point_flag)
         color.modifier_siamese = ['cs', 'cs'];
       else {
-        if (this.dam_point_holder_flag)
+        if (this.dam.point_holder_flag)
           color.modifier_siamese = ['Cs', 'cs'];
         else
           color.modifier_siamese = ['Cs', '-'];
       };
 
       // create color object
-      this.dam_color_obj = color;
+      this.dam.color_obj = color;
 
       return ems_genotype_obj_to_str(color);
+    },
+
+    permalink_query: function () {
+      return {
+        dam: btoa(JSON.stringify(this.dam)),
+        sire: btoa(JSON.stringify(this.sire))
+      }
     },
   },
   watch: {
     // whenever question changes, this function will run
-    'sire_ems_color': function (newval, oldval) {
+    sire_ems_color: function (newval, oldval) {
       if (newval != oldval) {
         this.do_breeding();
       };
     },
-    'dam_ems_color': function (newval, oldval) {
+    dam_ems_color: function (newval, oldval) {
       if (newval != oldval) {
         this.do_breeding();
       };
     }
-  }
+  },
+
+  // when mounting, analyse query parameters
+  beforeMount: function () {
+    console.log("sire:" + this.$route.query.sire);
+    if (this.$route.query.sire) {
+      this.sire = JSON.parse(atob(this.$route.query.sire))
+    };
+    console.log("dam:" + this.$route.query.dam);
+    if (this.$route.query.dam) {
+      this.dam = JSON.parse(atob(this.$route.query.dam))
+    };
+  },
 });
 
