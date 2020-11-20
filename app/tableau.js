@@ -160,11 +160,7 @@ var breeding = new Vue({
 
       // create color object
       this.sire.color_obj = color;
-
-      console.log('salut');
-      console.log(this.$route);
-      console.log('----------');
-
+      
       return ems_genotype_obj_to_str(color);
     },
 
@@ -233,14 +229,13 @@ var breeding = new Vue({
 
   // when mounting, analyse query parameters
   beforeMount: function () {
-    console.log("sire:" + this.$route.query.sire);
     if (this.$route.query.sire) {
       this.sire = JSON.parse(atob(this.$route.query.sire))
     };
-    console.log("dam:" + this.$route.query.dam);
     if (this.$route.query.dam) {
       this.dam = JSON.parse(atob(this.$route.query.dam))
     };
+    this.do_breeding();
   },
 });
 
