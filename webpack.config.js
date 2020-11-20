@@ -8,7 +8,7 @@ module.exports = {
     cache: true,
     devtool: 'source-map',
     entry: {
-        bundle: PATHS.app + "/index.js",
+        list: PATHS.app + "/list.js",
         calculette: PATHS.app + "/calculette.js",
         tableau: PATHS.app + "/tableau.js"
     },
