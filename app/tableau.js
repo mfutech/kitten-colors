@@ -31,8 +31,8 @@ Vue.filter("formatPercent", function (number) {
   if (isNaN(number)) 
     return "";
   else
-    return new Intl.NumberFormat('de-DE', { style: 'percent', minimumFractionDigits: 2,
-    maximumFractionDigits: 2 }).format(number);
+    return new Intl.NumberFormat('de-DE', { style: 'percent', minimumFractionDigits: 1,
+    maximumFractionDigits: 1 }).format(number);
 });
 
 Vue.use(VueRouter);
