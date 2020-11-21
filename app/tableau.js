@@ -224,7 +224,47 @@ var breeding = new Vue({
       if (newval != oldval) {
         this.do_breeding();
       };
-    }
+    },
+    "dam.hz_aggouti_flag": function (newval, oldval){
+      console.log('dam.hz_aggouti_flag changed')
+      if (newval != oldval && newval == true)
+        this.dam.aggouti_flag = true;
+    },
+    "dam.aggouti_flag": function (newval, oldval){
+      console.log('dam.aggouti_flag changed')
+      if (newval != oldval && newval == false)
+        this.dam.hz_aggouti_flag = false;
+    },
+    "sire.hz_aggouti_flag": function (newval, oldval){
+      console.log('sire.hz_aggouti_flag changed')
+      if (newval != oldval && newval == true)
+        this.sire.aggouti_flag = true;
+    },
+    "sire.aggouti_flag": function (newval, oldval){
+      console.log('sire.aggouti_flag changed')
+      if (newval != oldval && newval == false)
+        this.sire.hz_aggouti_flag = false;
+    },
+    "dam.hz_silver_flag": function (newval, oldval){
+      console.log('dam.hz_silver_flag changed')
+      if (newval != oldval && newval == true)
+        this.dam.silver_flag = true;
+    },
+    "dam.silver_flag": function (newval, oldval){
+      console.log('dam.silver_flag changed')
+      if (newval != oldval && newval == false)
+        this.dam.hz_silver_flag = false;
+    },
+    "sire.hz_silver_flag": function (newval, oldval){
+      console.log('sire.hz_silver_flag changed')
+      if (newval != oldval && newval == true)
+        this.sire.silver_flag = true;
+    },
+    "sire.silver_flag": function (newval, oldval){
+      console.log('sire.silver_flag changed')
+      if (newval != oldval && newval == false)
+        this.sire.hz_silver_flag = false;
+    },
   },
 
   // when mounting, analyse query parameters
