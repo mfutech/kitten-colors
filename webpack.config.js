@@ -1,3 +1,4 @@
+const CopyPlugin = require("copy-webpack-plugin");
 const path = require('path');
 const PATHS = {
     app: path.resolve(__dirname, 'app'),
@@ -58,5 +59,13 @@ module.exports = {
     devServer : {
         contentBase: './build',
         port: 8001
-    }
+    },
+    plugins: [
+        new CopyPlugin({
+            patterns: [
+                { from: "app/*.html", flatten: true },
+                { from: "app/css", to: "css"}
+            ]
+        }),
+    ]
 };
