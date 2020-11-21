@@ -25,7 +25,9 @@
     Only relevant for cats, from common breeds.
 */
 
-//"use strict"
+"use strict"
+
+import { CatColor } from './cat_color.js';
 export { ems_parse, ems_translate, color_names, color_names_unknown_genotype };
 
 // translation table for colors
@@ -158,7 +160,9 @@ let color_names = {
       patterns_error: patterns_error,
       ems_no_genotype: ems_no_genotype,
     };
-  }
+  };
+
+  
   
   /*
   

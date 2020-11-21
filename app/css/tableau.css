@@ -1,0 +1,40 @@
+#calcul2 td {
+    text-align: right;
+}
+
+tr.ligne_1pair   {
+    background-color: #f2f2f2;
+}
+
+#calcul1 th {
+    text-align: left;
+}
+
+td.cell-1, th.cell-1 {
+    text-align: center;
+    background-color: #ceebfd;
+}
+
+td.cell-2, th.cell-2 {
+    text-align: center;
+    color: gray;
+    background-color: #9dd7fb;
+}
+
+td.cell-3, th.cell-3 {
+    text-align: center;
+    color: white;
+    background-color: #6cc3f9;
+}
+
+td.cell-4, th.cell-4 {
+    text-align: center;
+    color: white;
+    background-color: #0a9bf5;
+}
+
+td.cell-5, th.cell-5 {
+    text-align: center;
+    color: white;
+    background-color: #076cab;
+}

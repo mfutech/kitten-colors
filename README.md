@@ -19,7 +19,7 @@ ne le faites pas et utiliser directement https://info.siberien.ch
 
 ### sur votre propre site
 
-rien n'est prévu pour que se soit facile a ce stade tu projets, et ce ne sera probablmeent jamais le cas. 
+rien n'est prévu pour que se soit facile a ce stade tu projets, et ce ne sera probablement jamais le cas. 
 Mais si cela vous tente, voici comment:
 
 1. cloner et compiler les fichiers

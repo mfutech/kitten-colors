@@ -1,3 +1,4 @@
+const CopyPlugin = require("copy-webpack-plugin");
 const path = require('path');
 const PATHS = {
     app: path.resolve(__dirname, 'app'),
@@ -5,9 +6,11 @@ const PATHS = {
 };
 module.exports = {
     mode: "development",
+    cache: true,
+    //devtool: 'source-map',
     entry: {
-        bundle: PATHS.app + "/index.js",
-        calculette: PATHS.app + "/calculette.js",
+        list: PATHS.app + "/list.js",
+        //calculette: PATHS.app + "/calculette.js",
         tableau: PATHS.app + "/tableau.js"
     },
     output: {
@@ -56,5 +59,13 @@ module.exports = {
     devServer : {
         contentBase: './build',
         port: 8001
-    }
+    },
+    plugins: [
+        new CopyPlugin({
+            patterns: [
+                { from: "app/*.html", flatten: true },
+                { from: "app/css", to: "css"}
+            ]
+        }),
+    ]
 };

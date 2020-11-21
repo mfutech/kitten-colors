@@ -26,8 +26,9 @@
 
 "use strict"
 
+import { CatColor } from './cat_color';
 import { ems_parse } from './ems_translator';
-export { ems_genotype, parse_genotype, ems_genotype_obj, ems_genotype_obj_to_str };
+export { ems_genotype, parse_genotype, ems_genotype_obj, ems_genotype_obj_to_str, catcol_from_genotype_str };
 
 function basic_color(ems_color, sex) {
     // ems color, as a string
@@ -132,7 +133,7 @@ function ems_genotype_obj_to_str(ems_code_obj) {
 
     return props.map(function (p) {
         return ems_code_obj[p].join("")
-    }).sort((a, b) => a.localeCompare(b, undefined, {sensitivity: 'base'})).join(" ");
+    }).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' })).join(" ");
 
 }
 
@@ -142,27 +143,27 @@ function ems_genotype(ems_code, sex = 'male') {
     return ems_genotype_obj_to_str(genotype);
 };
 
-function update_error(error, genes_ar, max_length){
+function update_error(error, genes_ar, max_length) {
     if (genes_ar.length > max_length) {
         error.push(genes_ar.slice(2).join(""));
     }
     return error;
 };
 
-function parse_genotype(genes_str){
+function parse_genotype(genes_str) {
     let genes = genes_str.split(/\s+/);
     let color = {
-        basic_color:        ["-", "-"],
-        diluted_color:      ["-", "-"],
-        fullcolor_color:    ["-", "-"],
-        silver_color:       ["-", "-"],
-        modifier_aggouti:   ["-", "-"],
-        modifier_siamese:   ["-", "-"],
-        genes_error:        []
+        basic_color: ["-", "-"],
+        diluted_color: ["-", "-"],
+        fullcolor_color: ["-", "-"],
+        silver_color: ["-", "-"],
+        modifier_aggouti: ["-", "-"],
+        modifier_siamese: ["-", "-"],
+        genes_error: []
     };
     let m;
 
-    genes.forEach(function(gene){
+    genes.forEach(function (gene) {
         if (m = gene.match(/^(a)(a|-)$/i)) { // aggouti
             color.modifier_aggouti = [m[1], m[2]];
         }
@@ -172,13 +173,13 @@ function parse_genotype(genes_str){
         else if (m = gene.match(/^(o)(o|y)$/i)) { // color & sex
             color.basic_color = [m[1], m[2]];
         }
-        else if (m = gene.match(/^(i)(i|-)$/i)){ // silver
+        else if (m = gene.match(/^(i)(i|-)$/i)) { // silver
             color.silver_color = [m[1], m[2]];
         }
         else if (m = gene.match(/^(cs)(cs|-)$/i)) { // point
             color.modifier_siamese = [m[1], m[2]];
         }
-        else if (m = gene.match(/^(b|bl|b\/bl)(b|bl|b\/bl|-)$/i)){ //fullcolor
+        else if (m = gene.match(/^(b|bl|b\/bl)(b|bl|b\/bl|-)$/i)) { //fullcolor
             color.fullcolor_color = [m[1], m[2]];
         }
         else if (gene == "--") { // discard unknown
@@ -188,4 +189,13 @@ function parse_genotype(genes_str){
         }
     });
     return color;
-}
+};
+
+function catcol_from_genotype_str(genotype_str) {
+    let col = parse_genotype(genotype_str);
+    let catcol = new CatColor(
+        col.basic_color.join(""), col.diluted_color.join(""), col.fullcolor_color.join(""),
+        col.silver_color.join(""), col.modifier_aggouti.join(""), col.modifier_siamese.join("")
+    );
+    return catcol;
+};

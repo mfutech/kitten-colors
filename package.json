@@ -22,6 +22,7 @@
   "homepage": "https://github.com/mfutech/kitten-colors#readme",
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
+    "copy-webpack-plugin": "^6.3.2",
     "css-loader": "^3.6.0",
     "file-loader": "^5.0.2",
     "postcss": "^7.0.35",
@@ -35,6 +36,7 @@
     "bootstrap": "^4.5.3",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.0",
-    "vue": "^2.6.12"
+    "vue": "^2.6.12",
+    "vue-router": "^3.4.9"
   }
 }

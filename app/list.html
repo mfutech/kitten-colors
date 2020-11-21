@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!--link rel="stylesheet" href="css/bootstrap.min.css"-->
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="list.css">
 </head>
 
 <body>
@@ -113,6 +113,8 @@
                 </tr>
             </table>
 
+            <router-link :to='{  query: permalink_query}'>(permalink)</router-link>
+
             <div v-if="(father_color.ems_no_genotype && father_color.ems_no_genotype.length > 0) || (mother_color.ems_no_genotype && mother_color.ems_no_genotype.length > 0)"
                 class="alert alert-warning" role="alert">
                 <strong>les genotype des code EMS suivant n'est pas prit en comtpe dans les couleurs des
@@ -136,7 +138,7 @@
                 data-target="#collapseDetails" aria-expanded="false" aria-controls="collapseDetails">
                 détails
             </button>
-            
+
             <div class="collapse" id="collapseDetails">
                 <div class="card card-body">
                     <h4>Toutes les possibilités:</h4>
@@ -188,8 +190,9 @@
                         </div>
             </footer>
             <!-- Footer -->
-            <script src="bundle.js"></script>
 
- </body>
+            <script src="list.js"></script>
+
+</body>
 
 </html>
