@@ -7,10 +7,11 @@
 </head>
 
 <body>
-    <h1>Chats Sibérien : Mariages</h1>
-    <h2 class=""><span class="titre">Choissisez les deux parents...</span></h2><br>
-    <div id="Breeding">
-        <!--div class="table-responsive"-->
+    <div class="container">
+        <h1>Chats Sibérien : Mariages</h1>
+        <h2 class=""><span class="titre">Choissisez les deux parents...</span></h2><br>
+        <div id="Breeding">
+            <!--div class="table-responsive"-->
 
             <table class="table" id="calcul1" style="border:1px solid lightgray">
                 <tbody>
@@ -90,192 +91,182 @@
                     </tr>
                 </tbody>
             </table>
-        <!--/div-->
-        <router-link :to='{  query: permalink_query}'>(permalink)</router-link>
+            <!--/div-->
+            <router-link :to='{  query: permalink_query}'>(permalink)</router-link>
 
-        <br><br>
-        <h2 class="">
-            <span class="sous-titre">... Possibilités de couleurs des chatons issus de ce
-                mariage</span>
-        </h2>
+            <br><br>
+            <h2 class="">
+                <span class="sous-titre">... Possibilités de couleurs des chatons issus de ce
+                    mariage</span>
+            </h2>
 
-        <table id="calcul2" style="border:1px solid lightgray">
-            <tbody>
-                <tr class="table">
-                    <td style="text-align: center;">
-                        <!--button @click="do_breeding()" class="btn btn-primary">mise à jour</button-->
-                    </td>
-                    <th colspan="8" class="cell-3">Mâle</th>
-                    <th colspan="8" class="cell-2">Femelle</th>
-                </tr>
-                <tr class="table">
-                    <td style="text-align: center;"> </td>
-                    <th colspan="4" class="cell-4"></th>
-                    <th colspan="4" class="cell-5">Point</th>
-                    <th colspan="4" class="cell-4"></th>
-                    <th colspan="4" class="cell-5">Point</th>
-                </tr>
-                <tr class="table">
-                    <th><strong>COULEUR</strong></td>
-                    <th class="cell-4" style="width: 5em;"><strong>Solide</strong></td>
-                    <th class="cell-3" style="width: 5em;"><strong>Tabby</strong></td>
-                    <th class="cell-2" style="width: 5em;"><strong>Smoke</strong></td>
-                    <th class="cell-1" style="width: 5em;"><strong>Silver</strong></td>
-                    <th class="cell-5" style="width: 5em;"><strong>Solide</strong></td>
-                    <th class="cell-3" style="width: 5em;"><strong>Tabby</strong></td>
-                    <th class="cell-2" style="width: 5em;"><strong>Smoke</strong></td>
-                    <th class="cell-1" style="width: 5em;"><strong>Silver</strong></td>
-                    <th class="cell-4" style="width: 5em;"><strong>Solide</strong></td>
-                    <th class="cell-3" style="width: 5em;"><strong>Tabby</strong></td>
-                    <th class="cell-2" style="width: 5em;"><strong>Smoke</strong></td>
-                    <th class="cell-1" style="width: 5em;"><strong>Silver</strong></td>
-                    <th class="cell-5" style="width: 5em;"><strong>Solide</strong></td>
-                    <th class="cell-3" style="width: 5em;"><strong>Tabby</strong></td>
-                    <th class="cell-2" style="width: 5em;"><strong>Smoke</strong></td>
-                    <th class="cell-1" style="width: 5em;"><strong>Silver</strong></td>
-                </tr>
+            <table id="calcul2" style="border:1px solid lightgray">
+                <tbody>
+                    <tr class="table">
+                        <td style="text-align: center;">
+                            <!--button @click="do_breeding()" class="btn btn-primary">mise à jour</button-->
+                        </td>
+                        <th colspan="8" class="cell-3">Mâle</th>
+                        <th colspan="8" class="cell-2">Femelle</th>
+                    </tr>
+                    <tr class="table">
+                        <td style="text-align: center;"> </td>
+                        <th colspan="4" class="cell-4"></th>
+                        <th colspan="4" class="cell-5">Point</th>
+                        <th colspan="4" class="cell-4"></th>
+                        <th colspan="4" class="cell-5">Point</th>
+                    </tr>
+                    <tr class="table">
+                        <th><strong>COULEUR</strong></td>
+                        <th class="cell-4" style="width: 5em;"><strong>Solide</strong></td>
+                        <th class="cell-3" style="width: 5em;"><strong>Tabby</strong></td>
+                        <th class="cell-2" style="width: 5em;"><strong>Smoke</strong></td>
+                        <th class="cell-1" style="width: 5em;"><strong>Silver</strong></td>
+                        <th class="cell-5" style="width: 5em;"><strong>Solide</strong></td>
+                        <th class="cell-3" style="width: 5em;"><strong>Tabby</strong></td>
+                        <th class="cell-2" style="width: 5em;"><strong>Smoke</strong></td>
+                        <th class="cell-1" style="width: 5em;"><strong>Silver</strong></td>
+                        <th class="cell-4" style="width: 5em;"><strong>Solide</strong></td>
+                        <th class="cell-3" style="width: 5em;"><strong>Tabby</strong></td>
+                        <th class="cell-2" style="width: 5em;"><strong>Smoke</strong></td>
+                        <th class="cell-1" style="width: 5em;"><strong>Silver</strong></td>
+                        <th class="cell-5" style="width: 5em;"><strong>Solide</strong></td>
+                        <th class="cell-3" style="width: 5em;"><strong>Tabby</strong></td>
+                        <th class="cell-2" style="width: 5em;"><strong>Smoke</strong></td>
+                        <th class="cell-1" style="width: 5em;"><strong>Silver</strong></td>
+                    </tr>
 
-                <tr class="table ligne_1pair">
-                    <td>Seal</td>
-                    <td>{{pcent_color('n',        'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('n 21',     'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('ns',       'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('ns 21',    'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('n 33',     'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('n 21 33',  'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('ns 33',    'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('ns 21 33', 'male')   | formatPercent}}</td>
+                    <tr class="table ligne_1pair">
+                        <td>Seal</td>
+                        <td>{{pcent_color('n',        'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('n 21',     'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('ns',       'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('ns 21',    'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('n 33',     'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('n 21 33',  'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('ns 33',    'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('ns 21 33', 'male')   | formatPercent}}</td>
 
-                    <td>{{pcent_color('n',        'female') | formatPercent}}</td>
-                    <td>{{pcent_color('n 21',     'female') | formatPercent}}</td>
-                    <td>{{pcent_color('ns',       'female') | formatPercent}}</td>
-                    <td>{{pcent_color('ns 21',    'female') | formatPercent}}</td>
-                    <td>{{pcent_color('n 33',     'female') | formatPercent}}</td>
-                    <td>{{pcent_color('n 21 33',  'female') | formatPercent}}</td>
-                    <td>{{pcent_color('ns 33',    'female') | formatPercent}}</td>
-                    <td>{{pcent_color('ns 21 33', 'female') | formatPercent}}</td>
-                </tr>
+                        <td>{{pcent_color('n',        'female') | formatPercent}}</td>
+                        <td>{{pcent_color('n 21',     'female') | formatPercent}}</td>
+                        <td>{{pcent_color('ns',       'female') | formatPercent}}</td>
+                        <td>{{pcent_color('ns 21',    'female') | formatPercent}}</td>
+                        <td>{{pcent_color('n 33',     'female') | formatPercent}}</td>
+                        <td>{{pcent_color('n 21 33',  'female') | formatPercent}}</td>
+                        <td>{{pcent_color('ns 33',    'female') | formatPercent}}</td>
+                        <td>{{pcent_color('ns 21 33', 'female') | formatPercent}}</td>
+                    </tr>
 
-                <tr class="table">
-                    <td>Blue</td>
-                    <td>{{pcent_color('a',        'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('a 21',     'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('as',       'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('as 21',    'male')   | formatPercent}}</td>
+                    <tr class="table">
+                        <td>Blue</td>
+                        <td>{{pcent_color('a',        'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('a 21',     'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('as',       'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('as 21',    'male')   | formatPercent}}</td>
 
-                    <td>{{pcent_color('a 33',     'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('a 21 33',  'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('as 33',    'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('as 21 33', 'male')   | formatPercent}}</td>
-                    
-                    <td>{{pcent_color('a',        'female') | formatPercent}}</td>
-                    <td>{{pcent_color('a 21',     'female') | formatPercent}}</td>
-                    <td>{{pcent_color('as',       'female') | formatPercent}}</td>
-                    <td>{{pcent_color('as 21',    'female') | formatPercent}}</td>
+                        <td>{{pcent_color('a 33',     'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('a 21 33',  'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('as 33',    'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('as 21 33', 'male')   | formatPercent}}</td>
 
-                    <td>{{pcent_color('a 33',     'female') | formatPercent}}</td>
-                    <td>{{pcent_color('a 21 33',  'female') | formatPercent}}</td>
-                    <td>{{pcent_color('as 33',    'female') | formatPercent}}</td>
-                    <td>{{pcent_color('as 21 33', 'female') | formatPercent}}</td>                
-                </tr>
+                        <td>{{pcent_color('a',        'female') | formatPercent}}</td>
+                        <td>{{pcent_color('a 21',     'female') | formatPercent}}</td>
+                        <td>{{pcent_color('as',       'female') | formatPercent}}</td>
+                        <td>{{pcent_color('as 21',    'female') | formatPercent}}</td>
 
-
-                <tr class="table ligne_1pair">
-                    <td>Red</td>
-                    <td>{{pcent_color('d',        'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('d 21',     'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('ds',       'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('ds 21',    'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('d 33',     'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('d 21 33',  'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('ds 33',    'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('ds 21 33', 'male')   | formatPercent}}</td>
-
-                    <td>{{pcent_color('d',        'female') | formatPercent}}</td>
-                    <td>{{pcent_color('d 21',     'female') | formatPercent}}</td>
-                    <td>{{pcent_color('ds',       'female') | formatPercent}}</td>
-                    <td>{{pcent_color('ds 21',    'female') | formatPercent}}</td>
-                    <td>{{pcent_color('d 33',     'female') | formatPercent}}</td>
-                    <td>{{pcent_color('d 21 33',  'female') | formatPercent}}</td>
-                    <td>{{pcent_color('ds 33',    'female') | formatPercent}}</td>
-                    <td>{{pcent_color('ds 21 33', 'female') | formatPercent}}</td>
-                </tr>
-
-                <tr class="table">
-                    <td>Cream</td>
-                    <td>{{pcent_color('e',       'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('e 21',    'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('es',      'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('es 21',   'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('e 33',    'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('e 21 33', 'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('es 33',   'male')   | formatPercent}}</td>
-                    <td>{{pcent_color('es 21 33','male')   | formatPercent}}</td>
-
-                    <td>{{pcent_color('e',       'female') | formatPercent}}</td>
-                    <td>{{pcent_color('e 21',    'female') | formatPercent}}</td>
-                    <td>{{pcent_color('es',      'female') | formatPercent}}</td>
-                    <td>{{pcent_color('es 21',   'female') | formatPercent}}</td>
-                    <td>{{pcent_color('e 33',    'female') | formatPercent}}</td>
-                    <td>{{pcent_color('e 21 33', 'female') | formatPercent}}</td>
-                    <td>{{pcent_color('es 33',   'female') | formatPercent}}</td>
-                    <td>{{pcent_color('es 21 33','female') | formatPercent}}</td>
-                </tr>
-
-                <tr class="table ligne_1pair">
-                    <td>Seal-Tortie</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>{{pcent_color('f',        'female') | formatPercent}}</td>
-                    <td>{{pcent_color('f 21',     'female') | formatPercent}}</td>
-                    <td>{{pcent_color('fs',       'female') | formatPercent}}</td>
-                    <td>{{pcent_color('fs 21',    'female') | formatPercent}}</td>
-                    <td>{{pcent_color('f 33',     'female') | formatPercent}}</td>
-                    <td>{{pcent_color('f 21 33',  'female') | formatPercent}}</td>
-                    <td>{{pcent_color('fs 33',    'female') | formatPercent}}</td>
-                    <td>{{pcent_color('fs 21 33', 'female') | formatPercent}}</td>
-                </tr>
-
-                <tr class="table">
-                    <td>Blue-Tortie</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>{{pcent_color('g',       'female') | formatPercent}}</td>
-                    <td>{{pcent_color('g 21',    'female') | formatPercent}}</td>
-                    <td>{{pcent_color('gs',      'female') | formatPercent}}</td>
-                    <td>{{pcent_color('gs 21',   'female') | formatPercent}}</td>
-                    <td>{{pcent_color('g 33',     'female') | formatPercent}}</td>
-                    <td>{{pcent_color('g 21 33',  'female') | formatPercent}}</td>
-                    <td>{{pcent_color('gs 33',    'female') | formatPercent}}</td>
-                    <td>{{pcent_color('gs 21 33', 'female') | formatPercent}}</td>
-                </tr>
+                        <td>{{pcent_color('a 33',     'female') | formatPercent}}</td>
+                        <td>{{pcent_color('a 21 33',  'female') | formatPercent}}</td>
+                        <td>{{pcent_color('as 33',    'female') | formatPercent}}</td>
+                        <td>{{pcent_color('as 21 33', 'female') | formatPercent}}</td>
+                    </tr>
 
 
-            </tbody>
-        </table>
-        <!--hr>
-        <div v-if="kitten_colors.collection">
-            <h4>Répartition des couleurs</h4>
-            <table class="table">
-                <tr v-for="(count, key) in kitten_colors.collection.counters">
-                    <td>{{key}}</td>
-                    <td>{{(count/kitten_colors.collection.length * 100).toFixed(2)}} %</td>
-                </tr>
+                    <tr class="table ligne_1pair">
+                        <td>Red</td>
+                        <td>{{pcent_color('d',        'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('d 21',     'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('ds',       'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('ds 21',    'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('d 33',     'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('d 21 33',  'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('ds 33',    'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('ds 21 33', 'male')   | formatPercent}}</td>
+
+                        <td>{{pcent_color('d',        'female') | formatPercent}}</td>
+                        <td>{{pcent_color('d 21',     'female') | formatPercent}}</td>
+                        <td>{{pcent_color('ds',       'female') | formatPercent}}</td>
+                        <td>{{pcent_color('ds 21',    'female') | formatPercent}}</td>
+                        <td>{{pcent_color('d 33',     'female') | formatPercent}}</td>
+                        <td>{{pcent_color('d 21 33',  'female') | formatPercent}}</td>
+                        <td>{{pcent_color('ds 33',    'female') | formatPercent}}</td>
+                        <td>{{pcent_color('ds 21 33', 'female') | formatPercent}}</td>
+                    </tr>
+
+                    <tr class="table">
+                        <td>Cream</td>
+                        <td>{{pcent_color('e',       'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('e 21',    'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('es',      'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('es 21',   'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('e 33',    'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('e 21 33', 'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('es 33',   'male')   | formatPercent}}</td>
+                        <td>{{pcent_color('es 21 33','male')   | formatPercent}}</td>
+
+                        <td>{{pcent_color('e',       'female') | formatPercent}}</td>
+                        <td>{{pcent_color('e 21',    'female') | formatPercent}}</td>
+                        <td>{{pcent_color('es',      'female') | formatPercent}}</td>
+                        <td>{{pcent_color('es 21',   'female') | formatPercent}}</td>
+                        <td>{{pcent_color('e 33',    'female') | formatPercent}}</td>
+                        <td>{{pcent_color('e 21 33', 'female') | formatPercent}}</td>
+                        <td>{{pcent_color('es 33',   'female') | formatPercent}}</td>
+                        <td>{{pcent_color('es 21 33','female') | formatPercent}}</td>
+                    </tr>
+
+                    <tr class="table ligne_1pair">
+                        <td>Seal-Tortie</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>{{pcent_color('f',        'female') | formatPercent}}</td>
+                        <td>{{pcent_color('f 21',     'female') | formatPercent}}</td>
+                        <td>{{pcent_color('fs',       'female') | formatPercent}}</td>
+                        <td>{{pcent_color('fs 21',    'female') | formatPercent}}</td>
+                        <td>{{pcent_color('f 33',     'female') | formatPercent}}</td>
+                        <td>{{pcent_color('f 21 33',  'female') | formatPercent}}</td>
+                        <td>{{pcent_color('fs 33',    'female') | formatPercent}}</td>
+                        <td>{{pcent_color('fs 21 33', 'female') | formatPercent}}</td>
+                    </tr>
+
+                    <tr class="table">
+                        <td>Blue-Tortie</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>{{pcent_color('g',       'female') | formatPercent}}</td>
+                        <td>{{pcent_color('g 21',    'female') | formatPercent}}</td>
+                        <td>{{pcent_color('gs',      'female') | formatPercent}}</td>
+                        <td>{{pcent_color('gs 21',   'female') | formatPercent}}</td>
+                        <td>{{pcent_color('g 33',     'female') | formatPercent}}</td>
+                        <td>{{pcent_color('g 21 33',  'female') | formatPercent}}</td>
+                        <td>{{pcent_color('gs 33',    'female') | formatPercent}}</td>
+                        <td>{{pcent_color('gs 21 33', 'female') | formatPercent}}</td>
+                    </tr>
+
+
+                </tbody>
             </table>
         </div>
-        <hr-->
     </div>
     <script src='tableau.js'></script>
 </body>
