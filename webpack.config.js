@@ -7,10 +7,10 @@ const PATHS = {
 module.exports = {
     mode: "development",
     cache: true,
-    devtool: 'source-map',
+    //devtool: 'source-map',
     entry: {
         list: PATHS.app + "/list.js",
-        calculette: PATHS.app + "/calculette.js",
+        //calculette: PATHS.app + "/calculette.js",
         tableau: PATHS.app + "/tableau.js"
     },
     output: {

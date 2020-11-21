@@ -229,13 +229,20 @@ var breeding = new Vue({
 
   // when mounting, analyse query parameters
   beforeMount: function () {
-    if (this.$route.query.sire) {
-      this.sire = JSON.parse(atob(this.$route.query.sire))
+    try {
+      if (this.$route.query.sire) {
+        this.sire = JSON.parse(atob(this.$route.query.sire))
+      };
+      if (this.$route.query.dam) {
+        this.dam = JSON.parse(atob(this.$route.query.dam))
+      };
+    }
+    catch(err){
+      console.log("error with query parameters : " + err)
+    }
+    finally {
+      this.do_breeding();
     };
-    if (this.$route.query.dam) {
-      this.dam = JSON.parse(atob(this.$route.query.dam))
-    };
-    this.do_breeding();
   },
 });
 
