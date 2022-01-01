@@ -57,7 +57,11 @@ module.exports = {
         ]
     },
     devServer : {
-        contentBase: './build',
+        //contentBase: './build',
+        static: {
+            directory: path.join(__dirname, 'build'),
+            watch: true,
+          },
         port: 8001
     },
     plugins: [
