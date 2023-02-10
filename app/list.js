@@ -23,7 +23,7 @@ require('bootstrap/dist/css/bootstrap.min.css');
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import { ems_translate  } from './ems_translator.js';
+import { ems_translate } from './ems_translator.js';
 import { ems_genotype, parse_genotype, catcol_from_genotype_str } from './ems_genotype.js';
 import { ems_breeding_genotype } from './ems_breeding';
 
@@ -96,7 +96,7 @@ var breeding = new Vue({
     // father_recomputed_genotype: function () {
     //   return parse_genotype(this.father_genotype);
     // },
-    permalink_query: function() {
+    permalink_query: function () {
       return { sire: this.father_genotype, dam: this.mother_genotype };
     },
     sortedKitten: function () {
@@ -134,17 +134,17 @@ var breeding = new Vue({
 
   // when mounting, analyse query parameters
   beforeMount: function () {
-    console.log("sire:" + this.$route.query.sire);
+    //console.log("sire:" + this.$route.query.sire);
     if (this.$route.query.sire) {
       this.father_color = catcol_from_genotype_str(this.$route.query.sire);
       this.father_ems = this.father_color.color_ems;
-      console.log(this.father_color)
+      //console.log(this.father_color)
     };
-    console.log("dam:" + this.$route.query.dam);
+    //console.log("dam:" + this.$route.query.dam);
     if (this.$route.query.dam) {
       this.mother_color = catcol_from_genotype_str(this.$route.query.dam);
       this.mother_ems = this.mother_color.color_ems;
-      console.log(this.mother_color)
+      //console.log(this.mother_color)
     };
   }
 });

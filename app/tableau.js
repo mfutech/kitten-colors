@@ -28,18 +28,20 @@ import { ems_genotype, parse_genotype, ems_genotype_obj, ems_genotype_obj_to_str
 import { ems_breeding_genotype } from './ems_breeding';
 
 Vue.filter("formatPercent", function (number) {
-  if (isNaN(number)) 
+  if (isNaN(number))
     return "";
   else
-    return new Intl.NumberFormat('de-DE', { style: 'percent', minimumFractionDigits: 1,
-    maximumFractionDigits: 1 }).format(number);
+    return new Intl.NumberFormat('de-DE', {
+      style: 'percent', minimumFractionDigits: 1,
+      maximumFractionDigits: 1
+    }).format(number);
 });
 
 Vue.use(VueRouter);
 
 const router = new VueRouter({
   mode: 'hash',
-  
+
 });
 
 var breeding = new Vue({
@@ -55,7 +57,7 @@ var breeding = new Vue({
       dilution_holder_flag: false,
       hz_aggouti_flag: false,
       hz_silver_flag: false,
-      siamese_flag: true,
+      //siamese_flag: true,
       color_obj: {},
       point_flag: false,
       point_holder_flag: false
@@ -69,7 +71,7 @@ var breeding = new Vue({
       dilution_holder_flag: false,
       hz_aggouti_flag: false,
       hz_silver_flag: false,
-      siamese_flag: true,
+      //siamese_flag: true,
       color_obj: {},
       point_flag: false,
       point_holder_flag: false
@@ -81,15 +83,20 @@ var breeding = new Vue({
     currentSortDir: 'asc'
   },
   beforeMount: function () {
-
     this.do_breeding();
   },
   methods: {
+    do_point: function () {
+      // force point -- use full for birman page 
+      this.sire.point_flag = true;
+      this.dam.point_flag = true;
+    },
     do_breeding: function () {
+      // will actually do the breeding
       if (this.sire.color_obj.basic_color != undefined && this.dam.color_obj.basic_color != undefined) {
         this.kitten_colors = ems_breeding_genotype(this.sire.color_obj, this.dam.color_obj);
         let kitten_male_color_count = [];
-        let kitten_female_color_count = []
+        let kitten_female_color_count = [];
         this.kitten_colors.colors.forEach(color => {
           if (color.sex == 'male') {
             kitten_male_color_count[color.color_ems] =
@@ -99,24 +106,24 @@ var breeding = new Vue({
               (kitten_female_color_count[color.color_ems] ? kitten_female_color_count[color.color_ems] : 0) + 1;
           };
         });
-        this.kitten_male_color_count   = kitten_male_color_count;
-        this.kitten_female_color_count = kitten_female_color_count
+        this.kitten_male_color_count = kitten_male_color_count;
+        this.kitten_female_color_count = kitten_female_color_count;
       };
     },
     pcent_color: function (color, sex) {
       if (this.kitten_colors.collection == undefined) return "--";
       if (sex == 'male') {
         let res = this.kitten_male_color_count[color];
-        if ( res != undefined)
-          return  res / this.kitten_colors.collection.length;
-        else 
+        if (res != undefined)
+          return res / this.kitten_colors.collection.length;
+        else
           return "-";
       }
       else {
         let res = this.kitten_female_color_count[color]
         if (res != undefined)
           return res / this.kitten_colors.collection.length;
-        else 
+        else
           return "-";
       };
     }
@@ -148,7 +155,7 @@ var breeding = new Vue({
       if (this.sire.dilution_holder_flag)
         color.diluted_color[1] = 'd';
 
-        // check point - siamese genes
+      // check point - siamese genes
       if (this.sire.point_flag)
         color.modifier_siamese = ['cs', 'cs'];
       else {
@@ -160,7 +167,7 @@ var breeding = new Vue({
 
       // create color object
       this.sire.color_obj = color;
-      
+
       return ems_genotype_obj_to_str(color);
     },
 
@@ -190,7 +197,7 @@ var breeding = new Vue({
       if (this.dam.dilution_holder_flag)
         color.diluted_color[1] = 'd';
 
-        // check point - siamese genes
+      // check point - siamese genes
       if (this.dam.point_flag)
         color.modifier_siamese = ['cs', 'cs'];
       else {
@@ -225,43 +232,35 @@ var breeding = new Vue({
         this.do_breeding();
       };
     },
-    "dam.hz_aggouti_flag": function (newval, oldval){
-      console.log('dam.hz_aggouti_flag changed')
+    "dam.hz_aggouti_flag": function (newval, oldval) {
       if (newval != oldval && newval == true)
         this.dam.aggouti_flag = true;
     },
-    "dam.aggouti_flag": function (newval, oldval){
-      console.log('dam.aggouti_flag changed')
+    "dam.aggouti_flag": function (newval, oldval) {
       if (newval != oldval && newval == false)
         this.dam.hz_aggouti_flag = false;
     },
-    "sire.hz_aggouti_flag": function (newval, oldval){
-      console.log('sire.hz_aggouti_flag changed')
+    "sire.hz_aggouti_flag": function (newval, oldval) {
       if (newval != oldval && newval == true)
         this.sire.aggouti_flag = true;
     },
-    "sire.aggouti_flag": function (newval, oldval){
-      console.log('sire.aggouti_flag changed')
+    "sire.aggouti_flag": function (newval, oldval) {
       if (newval != oldval && newval == false)
         this.sire.hz_aggouti_flag = false;
     },
-    "dam.hz_silver_flag": function (newval, oldval){
-      console.log('dam.hz_silver_flag changed')
+    "dam.hz_silver_flag": function (newval, oldval) {
       if (newval != oldval && newval == true)
         this.dam.silver_flag = true;
     },
-    "dam.silver_flag": function (newval, oldval){
-      console.log('dam.silver_flag changed')
+    "dam.silver_flag": function (newval, oldval) {
       if (newval != oldval && newval == false)
         this.dam.hz_silver_flag = false;
     },
-    "sire.hz_silver_flag": function (newval, oldval){
-      console.log('sire.hz_silver_flag changed')
+    "sire.hz_silver_flag": function (newval, oldval) {
       if (newval != oldval && newval == true)
         this.sire.silver_flag = true;
     },
-    "sire.silver_flag": function (newval, oldval){
-      console.log('sire.silver_flag changed')
+    "sire.silver_flag": function (newval, oldval) {
       if (newval != oldval && newval == false)
         this.sire.hz_silver_flag = false;
     },
@@ -277,7 +276,7 @@ var breeding = new Vue({
         this.dam = JSON.parse(atob(this.$route.query.dam))
       };
     }
-    catch(err){
+    catch (err) {
       console.log("error with query parameters : " + err)
     }
     finally {
