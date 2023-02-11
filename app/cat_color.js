@@ -76,8 +76,8 @@ class CatColor {
                     }
                 }
                 break;
-            case "OO":
-            case "Oy":
+            case "OO": // red female
+            case "Oy": // red male
                 if (this.is_diluted) {
                     color = "cream";
                     ems_color.push("e");
@@ -87,7 +87,7 @@ class CatColor {
                     ems_color.push("d");
                 }
                 break;
-            case "Oo": // tortie
+            case "Oo": // tortie, always female
                 if (this.is_diluted) { // dd
                     if (this.is_chocolate) { // blb bbl
                         if (this.is_cinamon) { // blbl
@@ -138,10 +138,8 @@ class CatColor {
         if (fullcolor == "Bb/bl" ||
             fullcolor == "b/bl-") comments.push("porteur cinamon ou chocolat");
         if (fullcolor == "--") comments.push("chocolat/cinamon indéterminé");
-        //comments.push("fullcolor: "+fullcolor);
 
         this.color = color;
-        //this.color_ems = ems;
         this.text = this.sex + " " + this.color;
         this.comments = comments;
 
@@ -160,11 +158,11 @@ class CatColor {
             this.color += " aggouti";
             ems_modifiers.push("21");
         }
-        else if (aggouti.match(/Aa|a-/)) {
+        if (aggouti.match(/Aa|a-/)) {
             this.comments.push("porteur solid");
         }
-        else if (aggouti == "--") {
-            this.comments.push("aggouti indéterminé");
+        if (aggouti == "--") {
+            this.comments.push("porteur aggouti indéterminé");
         }
 
         this.is_solid = (aggouti == "aa");
@@ -182,11 +180,11 @@ class CatColor {
             case "cs-":
                 this.comments.push("porteur point"); break;
             case "--":
-                this.comments.push("point indéterminé"); break;
+                this.comments.push("porteur point indéterminé"); break;
         };
 
-        this.color_ems = [ ems_color.sort().join(""), 
-                           ems_modifiers ].flat().join(" ");
+        this.color_ems = [ems_color.sort().join(""),
+            ems_modifiers].flat().join(" ");
 
         // fix genotype
         this.genotype = [
@@ -197,7 +195,7 @@ class CatColor {
             this.silver, //i
             this.base // o
         ].join(" ");
-            
+
         //            genotype2Str([this.base, this.dilution, this.fullcolor, this.silver, this.aggouti, this.siamese]);
 
     };

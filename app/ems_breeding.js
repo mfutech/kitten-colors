@@ -36,11 +36,12 @@ function compose_gen(gen1, gen2) {
 };
 
 function combine_genes(gen_arr1, gen_arr2) {
+    // TODO : can find a more efficient algo
     let combination = gen_arr1.map(gen1 =>
         gen_arr2.map(gen2 =>
             compose_gen(gen1, gen2)
         ));
-    return uniq(combination.flat());
+    return uniq(combination.flat()); // return an uniq array of combinaison
 };
 
 function genotype2Str(genotype_arr) {
@@ -52,6 +53,7 @@ function genotype2Str(genotype_arr) {
 
 function ems_breeding_genotype(father_genotype, mother_genotype) {
 
+    // list of properties on which we will do combination
     let props = [
         'basic_color',
         'diluted_color',

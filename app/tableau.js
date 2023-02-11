@@ -22,6 +22,7 @@ import 'bootstrap';
 require('bootstrap/dist/css/bootstrap.min.css');
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import { Buffer } from 'buffer';
 
 import { ems_translate } from './ems_translator.js';
 import { ems_genotype, parse_genotype, ems_genotype_obj, ems_genotype_obj_to_str } from './ems_genotype.js';
@@ -110,6 +111,7 @@ var breeding = new Vue({
         this.kitten_female_color_count = kitten_female_color_count;
       };
     },
+    // compute for a given color and sex the number of kitten, return in % of total kitten
     pcent_color: function (color, sex) {
       if (this.kitten_colors.collection == undefined) return "--";
       if (sex == 'male') {
@@ -214,9 +216,11 @@ var breeding = new Vue({
     },
 
     permalink_query: function () {
+      var dam_b = Buffer.from(JSON.stringify(this.dam));
+      var sire_b = Buffer.from(JSON.stringify(this.sire));
       return {
-        dam: btoa(JSON.stringify(this.dam)),
-        sire: btoa(JSON.stringify(this.sire))
+        dam: dam_b.toString('base64'),
+        sire: sire_b.toString('base64')
       }
     },
   },
